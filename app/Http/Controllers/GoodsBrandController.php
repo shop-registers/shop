@@ -10,6 +10,7 @@ class GoodsBrandController extends Controller
     //品牌列表
     public function brandlist()
     {
+        $page = Input::get('page')?Input::get('page'):1;
         $data = Brand::paginate(15);
         return view('goodsbrand.brandlist',['data'=>$data]);
     }
@@ -28,11 +29,25 @@ class GoodsBrandController extends Controller
         if($res){
             return view('success')->with([
                 'message'=>'添加成功',
-                'url'=>'../brandcreate',
+                'url'=>'brandcreate',
                 'urlname'=>'品牌添加',
-                'jumpTime'=>2,
+                'jumpTime'=>3,
             ]);
         }
+    }
 
+    //删除
+    public function branddestory(Request $request,$id=null)
+    {
+        $brand = Brand::find($id);
+        $brand->delete();
+        return redirect('brandlist');
+    }
+
+    //编辑
+    public function brandedit(Request $request,$id=null)
+    {
+        $brand = Brand::find($id);
+        return view('goodsbrand.brandedit',['data'=>$brand]);
     }
 }

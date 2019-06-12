@@ -60,10 +60,10 @@
                                     </td>
                                     <td>{{$item->id}}</td>
                                     <td>{{$item->brand_name}}</td>
-                                    <td>{{$item->brand_logo}}</td>
+                                    <td><img src="../storage/app/{{$item->brand_logo}}" width="50px"></td>
                                     <td>
-                                        <a href="edit/{{$item->id}}">编辑</a>  |
-                                        <a href="destory/{{$item->id}}">删除</a>
+                                        <a href="brandedit/{{$item->id}}">编辑</a>  |
+                                        <a href="branddestory/{{$item->id}}">删除</a>
                                     </td>
                                 </tr>
                             @endforeach

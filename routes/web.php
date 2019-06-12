@@ -25,6 +25,8 @@ Route::group(['prefix'=>'/'],function(){
     Route::get('brandlist', "GoodsBrandController@brandlist");
     Route::get('brandcreate', "GoodsBrandController@brandcreate");
     Route::post('brandcreatedo', "GoodsBrandController@brandcreatedo");
+    Route::get('branddestory/{id?}', "GoodsBrandController@branddestory");
+    Route::get('brandedit/{id?}', "GoodsBrandController@brandedit");
 });
 
 

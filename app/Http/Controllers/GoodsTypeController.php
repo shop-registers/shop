@@ -38,8 +38,6 @@ class GoodsTypeController extends Controller
             $data->delete();
             return redirect('goodstype');
         }
-
-
     }
 
     //编辑

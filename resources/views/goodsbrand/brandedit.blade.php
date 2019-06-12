@@ -39,11 +39,11 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-                    <form method="post" class="form-horizontal" action="brandcreatedo" enctype="multipart/form-data">
+                    <form method="post" class="form-horizontal" action="brandsave" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label class="col-sm-2 control-label">品牌名称</label>
-
+                            <input type="hidden" name="id" value="{{$data->id}}" class="form-control">
                             <div class="col-sm-10">
                                 <input type="text" name="brand_name" value="{{$data->brand_name}}" class="form-control">
                             </div>

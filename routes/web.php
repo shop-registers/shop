@@ -22,11 +22,12 @@ Route::group(['prefix'=>'/'],function(){
 });
 //商品品牌路由
 Route::group(['prefix'=>'/'],function(){
-    Route::get('brandlist', "GoodsBrandController@brandlist");
+    Route::any('brandlist', "GoodsBrandController@brandlist");
     Route::get('brandcreate', "GoodsBrandController@brandcreate");
     Route::post('brandcreatedo', "GoodsBrandController@brandcreatedo");
     Route::get('branddestory/{id?}', "GoodsBrandController@branddestory");
     Route::get('brandedit/{id?}', "GoodsBrandController@brandedit");
+    Route::any('brandedit/brandsave', "GoodsBrandController@brandsave");
 });
 
 

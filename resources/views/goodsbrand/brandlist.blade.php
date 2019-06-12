@@ -26,7 +26,7 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>品牌管理
-                        <a href="create">品牌添加</a>
+                        <a href="brandcreate">品牌添加</a>
                     </h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
@@ -49,6 +49,7 @@
                                 <th>ID</th>
                                 <th>品牌名称</th>
                                 <th>Logo</th>
+                                <th>是否显示</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -62,6 +63,14 @@
                                     <td>{{$item->brand_name}}</td>
                                     <td><img src="../storage/app/{{$item->brand_logo}}" width="50px"></td>
                                     <td>
+                                        @if($item['is_show'] == 1)
+                                            <i class="fa fa-check"></i>
+                                        @else
+                                            <button class="btn btn-warning btn-circle" type="button"><i class="fa fa-times"></i>
+                                            </button>
+                                        @endif
+                                    </td>
+                                    <td>
                                         <a href="brandedit/{{$item->id}}">编辑</a>  |
                                         <a href="branddestory/{{$item->id}}">删除</a>
                                     </td>
@@ -70,6 +79,7 @@
                             </tbody>
                         </table>
                     </div>
+                    {{$data->links()}}
                 </div>
             </div>
         </div>

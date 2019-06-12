@@ -52,19 +52,6 @@
                             <span class="nav-label">主页</span>
                         </a>
                     </li>
-                    <li>
-                        <a class="J_menuItem" href="add_menu">
-                            <i class="fa fa-home"></i>
-                            <span class="nav-label">添加菜单</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="J_menuItem" href="menu_list">
-                            <i class="fa fa-home"></i>
-                            <span class="nav-label">菜单列表</span>
-                        </a>
-                    </li>
-
               <!--       <li>
                         <a href="mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">信箱 </span><span class="label label-warning pull-right">16</span></a>
                         <ul class="nav nav-second-level">
@@ -83,10 +70,10 @@
                     @foreach ($k['child'] as $v) 
                       <ul class="nav nav-second-level">
                             <li>
-                                <a href="<?php echo $v['controller'];?>".'//'."<?php echo $v['action'];?>"><?php echo $v['name'];?> <span class="fa arrow"></span></a>
+                            <a class="J_menuItem" href="<?php echo $v['action'];?>"><i class="fa fa-home"></i><span class="nav-label"><?php echo $v['name'];?> </span> </a>
                                 @foreach ($v['child'] as $v1)
                                 <ul class="nav nav-third-level">
-                                    <li><a class="J_menuItem" href="<?php echo $v1['controller'];?>".'//'."<?php echo $v1['action'];?>"><?php echo $v1['name'];?></a> </li>
+                                    <li><a class="J_menuItem" href="<?php echo $v1['action'];?>"><?php echo $v1['name'];?></a> </li>
                                 </ul>
                                 @endforeach
                             </li>
@@ -190,7 +177,7 @@
                     </ul>
                 </nav>
             </div>
-               <h3>你好,<span style="color:blue">{{$user_name}}</span> 欢迎来到电商后台。{{$user_id}}</h3>
+               <h3>你好,<span style="color:blue">{{$user_name}}</span> 欢迎来到电商后台。当前时间为：<span style="color:blue">{{date('Y-m-d H:i:s',$time)}}</span></h3>
             <div class="row J_mainContent" id="content-main">
                 <iframe id="J_iframe" width="100%" height="100%" src="index_v1" frameborder="0" data-id="index_v1" seamless></iframe>
             </div>

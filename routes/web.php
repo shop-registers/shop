@@ -21,4 +21,6 @@ Route::get("/index_v1","MyController@index_v1");
 Route::get("/common","CommonController@initialize");
 //添加菜单
 Route::get("/add_menu","MenuController@add_menu");
+//菜单列表
+Route::get("/menu_list","MenuController@menu_list");
 

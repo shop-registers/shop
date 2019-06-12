@@ -35,6 +35,7 @@ class MyController extends Controller
     {
         $user_name=$request->session()->get('name');  //用户名
         $user_id=$request->session()->get('user_id'); //用户id
+        $time=time(); 
         // 多表联查菜单数据
         $menu_data = DB::table('users')
             ->join('user_role', 'users.id', '=', 'user_role.u_id')
@@ -47,9 +48,9 @@ class MyController extends Controller
         // var_dump($menu_data2);
         //调用递归
         $menu_data3=$this->getTree($menu_data2,0);
-        // var_dump($res);
+        // var_dump($menu_data3);
         //渲染视图层
-    	return view("index",['user_name'=>$user_name,'user_id'=>$user_id,'menu_data3'=>$menu_data3]);
+    	return view("index",['user_name'=>$user_name,'time'=>$time,'user_id'=>$user_id,'menu_data3'=>$menu_data3]);
     }
     public function index_v1()
     {
@@ -57,21 +58,7 @@ class MyController extends Controller
     }
 
     ////递归方法
-    // function getTree($menu_data2, $pid)
-    // {
-    //     $tree = '';
-    //     foreach($menu_data2 as $k => $v)
-    //     {
-    //         if($v['pid'] == $pid)
-    //         {         //父亲找到儿子
-    //             $v['pid'] =$this->getTree($menu_data2, $v['id']);
-    //             $tree[] = $v;
-    //             unset($menu_data2[$k]);
-    //         }
-    //     }
-    //     return $tree;
-    // }
-     function getTree($menu_data2,$pid)
+    function getTree($menu_data2,$pid)
     {
         //初始化儿子 
         $child = []; 

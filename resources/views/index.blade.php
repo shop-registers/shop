@@ -52,6 +52,19 @@
                             <span class="nav-label">主页</span>
                         </a>
                     </li>
+                    <li>
+                        <a class="J_menuItem" href="add_menu">
+                            <i class="fa fa-home"></i>
+                            <span class="nav-label">添加菜单</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="J_menuItem" href="menu_list">
+                            <i class="fa fa-home"></i>
+                            <span class="nav-label">菜单列表</span>
+                        </a>
+                    </li>
+
               <!--       <li>
                         <a href="mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">信箱 </span><span class="label label-warning pull-right">16</span></a>
                         <ul class="nav nav-second-level">
@@ -65,31 +78,20 @@
                     </li> -->
                     <!-- 循环左侧菜单 -->
                     @foreach ($menu_data3 as $k)
-                    
                     <li>
-                       <a href="#"><i class="fa fa-edit"></i> <span class="nav-label"><?php echo $k['name'];?></span><span class="fa arrow"></span></a>
-                    @if($k['child'])
+                    <a class="J_menuItem" href="javascript::volid(0)"><i class="fa fa-edit"></i> <span class="nav-label"><?php echo $k['name'];?></span></a>
                     @foreach ($k['child'] as $v) 
                       <ul class="nav nav-second-level">
                             <li>
-                                <a href="#"><?php echo $v['name'];?> <span class="fa arrow"></span></a>
+                                <a href="<?php echo $v['controller'];?>".'//'."<?php echo $v['action'];?>"><?php echo $v['name'];?> <span class="fa arrow"></span></a>
                                 @foreach ($v['child'] as $v1)
                                 <ul class="nav nav-third-level">
-                                    <li><a class="J_menuItem" href="form_editors.html"><?php echo $v1['name'];?></a> </li>
+                                    <li><a class="J_menuItem" href="<?php echo $v1['controller'];?>".'//'."<?php echo $v1['action'];?>"><?php echo $v1['name'];?></a> </li>
                                 </ul>
                                 @endforeach
                             </li>
                      </ul> 
-                      @endforeach  
-                      @elseif($k['child']==' ')
-                      @foreach ($k['child'] as $v) 
-                      <ul class="nav nav-second-level">
-                            <li>
-                            <a class="J_menuItem" href="mail_compose.html"><?php echo $v['name'];?></a>
-                            </li>
-                     </ul> 
-                      @endforeach 
-                      @endif
+                      @endforeach
                     </li>
                    @endforeach
                 <!-- 循环左侧菜单 -->

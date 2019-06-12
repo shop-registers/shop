@@ -19,4 +19,6 @@ Route::get('/index',"MyController@index");
 Route::get("/index_v1","MyController@index_v1");
 //公共类
 Route::get("/common","CommonController@initialize");
+//添加菜单
+Route::get("/add_menu","MenuController@add_menu");
 

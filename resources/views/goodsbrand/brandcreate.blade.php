@@ -39,21 +39,28 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-                    <form method="post" class="form-horizontal" action="createdo">
+                    <form method="post" class="form-horizontal" action="brandcreatedo" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">分类名称</label>
+                            <label class="col-sm-2 control-label">品牌名称</label>
 
                             <div class="col-sm-10">
-                                <input type="text" name="type_name" class="form-control">
+                                <input type="text" name="brand_name" class="form-control">
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">分类排序</label>
+                            <label class="col-sm-2 control-label">品牌logo</label>
+                            <div class="col-sm-10">
+                                <input type="file" name="img" class="form-control">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">品牌排序</label>
 
                             <div class="col-sm-10">
-                                <input type="number" name="sortnum" class="form-control">
+                                <input type="number" name="brand_order" class="form-control">
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
@@ -64,25 +71,12 @@
                             <div class="col-sm-10">
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" checked value="0" id="optionsRadios1" name="is_show">是</label>
+                                        <input type="radio" checked value="1" id="optionsRadios1" name="is_show">是</label>
                                 </div>
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" value="1" id="optionsRadios2" name="is_show">否</label>
+                                        <input type="radio" value="0" id="optionsRadios2" name="is_show">否</label>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="hr-line-dashed"></div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">顶级分类</label>
-
-                            <div class="col-sm-10">
-                                <select class="form-control m-b" name="f_id" style="height: 30px">
-                                    <option value="0">无</option>
-                                    @foreach($type as $item)
-                                        <option value="{{$item->id}}">{{$item->type_name}}</option>
-                                    @endforeach
-                                </select>
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>

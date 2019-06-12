@@ -11,6 +11,7 @@
 |
 */
 Route::get('/', "GoodsTypeController@index");
+//商品分类路由
 Route::group(['prefix'=>'/'],function(){
     Route::get('goodstype', "GoodsTypeController@goodsTypeList");
     Route::get('destory/{id?}', "GoodsTypeController@destory");
@@ -18,6 +19,12 @@ Route::group(['prefix'=>'/'],function(){
     Route::get('create', "GoodsTypeController@create");
     Route::post('createdo', "GoodsTypeController@createdo");
     Route::post('edit/save', "GoodsTypeController@save");
+});
+//商品品牌路由
+Route::group(['prefix'=>'/'],function(){
+    Route::get('brandlist', "GoodsBrandController@brandlist");
+    Route::get('brandcreate', "GoodsBrandController@brandcreate");
+    Route::post('brandcreatedo', "GoodsBrandController@brandcreatedo");
 });
 
 

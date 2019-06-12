@@ -54,7 +54,7 @@
                 </li>
                 <li class="line dk"></li>
                 <li>
-                    <a href="#"><i class="fa fa-desktop"></i> <span class="nav-label">页面</span><span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-desktop"></i> <span class="nav-label">商品分类管理</span><span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li><a class="J_menuItem" href="goodstype">商品分类列表</a>
                         </li>
@@ -62,7 +62,16 @@
                         </li>
                     </ul>
                 </li>
-
+                <li class="line dk"></li>
+                <li>
+                    <a href="#"><i class="fa fa-desktop"></i> <span class="nav-label">品牌管理</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a class="J_menuItem" href="brandlist">品牌列表</a>
+                        </li>
+                        <li><a class="J_menuItem" href="brandcreate">添加品牌</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </nav>

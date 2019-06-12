@@ -11,7 +11,7 @@ class GoodsTypeController extends Controller
     //后台首页
     public function index()
     {
-        return view('index');
+        return view('goodstype.index');
     }
 
     //商品分类
@@ -19,7 +19,7 @@ class GoodsTypeController extends Controller
     {
         $data = Goodstype::all()->toArray();
         $arr = $this->getTree($data);
-        return view('goodstypelist',['data'=>$arr]);
+        return view('goodstype.goodstypelist',['data'=>$arr]);
     }
 
     //删除
@@ -57,7 +57,7 @@ class GoodsTypeController extends Controller
         //查找数据
         $data = Goodstype::find($id);
 
-        return view('edit',['data'=>$data,'type'=>$type]);
+        return view('goodstype.edit',['data'=>$data,'type'=>$type]);
     }
 
     //添加页面
@@ -72,7 +72,7 @@ class GoodsTypeController extends Controller
             Cache::forever('type',$type);
         }
 
-        return view('create',['type'=>$type]);
+        return view('goodstype.create',['type'=>$type]);
     }
 
     //添加
@@ -99,7 +99,7 @@ class GoodsTypeController extends Controller
             if($v['f_id'] == $pid){
                 $v['type_name'] = $level.$v['type_name'];
                 $arr[] = $v;
-                $this->getTree($data,$v['id'],$level.'|__');
+                $this->getTree($data,$v['id'],$level.'  ');
             }
         }
         return $arr;

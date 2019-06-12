@@ -66,8 +66,7 @@
                                         @if($item['is_show'] == 1)
                                             <i class="fa fa-check"></i>
                                         @else
-                                            <button class="btn btn-warning btn-circle" type="button"><i class="fa fa-times"></i>
-                                            </button>
+                                            <i class="fa fa-times"></i>
                                         @endif
                                     </td>
                                     <td>

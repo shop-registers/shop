@@ -22,26 +22,39 @@
 
 <body class="gray-bg">
     <div class="wrapper wrapper-content animated fadeInRight">
+    <form action="addsku" method="POST">
         <div class="row">
             <div class="col-sm-12">
                <div id="navtab1" style="width: 960px; margin:0 auto; padding:20px; border: 1px solid #A3C0E8;">
-                <select name="type_id" class="type">
-                    @foreach ($type as $info)
-                    <option value="{{$info->id}}">{{$info->type_name}}</option>
-                    @endforeach
-                </select>
+                <div class="form-group">
+                    <div class="col-sm-10">
+                        <select class="form-control m-b type" name="type_id">
+                            <option>请选择分类</option>
+                            @foreach ($type as $info)
+                            <option value="{{$info->id}}">{{$info->type_name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-sm-10" id="goods">
+                        
+                            
+                        
+                    </div>
+                </div>
     <div title="扩展信息" tabid="tabItem3">
         <div id="Div1">
         </div>
         <div id="tables">
-            <form>
+            
+                @csrf
                 <table id="t01" class="table table-striped">
                     
                 </table>
                 <button type='submit' id='Button2' class='btn btn-w-m btn-primary l-button'>提交</button>
-            </form>
+            
         </div>
     </div>
+    </form>
 </div>
             </div>
         </div>
@@ -93,8 +106,24 @@
 
     <!-- iCheck -->
     <script>
-
         $(document).on('change','.type',function(){
+            id=$(this).val();
+            $.ajax({
+                url:"changegood",
+                data:{id:id},
+                type:"GET",
+                dataType:"json",
+                success:function(res){
+                    var str='<select class="form-control m-b good" name="good_id"><option>请选择商品</option>';
+                    $.each(res,function(k,v){
+                        str+='<option value="'+v.id+'">'+v.good_name+'</option>';
+                    })
+                    str+="</select>";
+                    $('#goods').html(str);
+                }
+            })
+        })
+        $(document).on('change','.good',function(){
             id=$(this).val();
             $.ajax({
                 url:"changeattr",
@@ -136,13 +165,13 @@
             $.each(ids,function(k,v){
                 tr+="<td value='"+v+"'>"+v+"</td>";    
             })
-            tr+="<td><input type='text' name='price'></td>";
-            tr+="<td><input type='text' name='inventory'></td>";
+            tr+="<td><input type='text' name='price[]'></td>";
+            tr+="<td><input type='text' name='inventory[]'></td>";
             tr+="</tr>";
             $('#t01').append(tr);
         })
         $(document).on('click','#Button2',function(){
-            id=$('.type').val();
+            id=$('.good').val();
             $.ajax({
                 url:"allsku",
                 data:{id:id},
@@ -158,13 +187,13 @@
                     $.each(res,function(key,value){
                         tr+="<tr>";
                         $.each(value,function(k,v){
-                            tr+="<td value='"+v+"'>"+v+"</td>";    
+                            tr+="<td><input name='"+key+"[]' value='"+v+"'></td>";    
                         })
-                        tr+="<td><input type='text' name='price'></td>";
-                        tr+="<td><input type='text' name='inventory'></td>";
+                        tr+="<td><input type='text' name='price[]' placeholder='请输入价格'></td>";
+                        tr+="<td><input type='text' name='inventory[]' placeholder='请输入库存'></td>";
                         tr+="</tr>";
                     })
-                    $('#t01').append(tr);
+                    $('#t01').html(tr);
                 }
             })
         });

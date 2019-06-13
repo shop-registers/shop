@@ -45,7 +45,7 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <form method="POST" class="form-horizontal" action="submitattr">
+                        <form method="POST" class="form-horizontal" action="add">
                             @csrf
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">属性名称</label>
@@ -74,11 +74,18 @@
                                 <label class="col-sm-2 control-label">属性所属分类</label>
 
                                 <div class="col-sm-10">
-                                    <select class="form-control m-b" name="type_id">
+                                    <select class="form-control m-b type">
+                                        <option>请选择</option>
                                         @foreach ($type as $info)
                                         <option value="{{$info->id}}">{{$info->type_name}}</option>
                                         @endforeach
                                     </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-10" id="goods">
+                                    
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
@@ -149,7 +156,25 @@
             });
         });
     </script>
-
+    <script type="text/javascript">
+         $(document).on('change','.type',function(){
+            id=$(this).val();
+            $.ajax({
+                url:"changegood",
+                data:{id:id},
+                type:"GET",
+                dataType:"json",
+                success:function(res){
+                    var str='<select class="form-control m-b good" name="good_id"><option>请选择商品</option>';
+                    $.each(res,function(k,v){
+                        str+='<option value="'+v.id+'">'+v.good_name+'</option>';
+                    })
+                    str+="</select>";
+                    $('#goods').html(str);
+                }
+            })
+        })
+    </script>
     
     
 

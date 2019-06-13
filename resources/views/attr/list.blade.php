@@ -63,7 +63,7 @@
                                         <th></th>
                                         <th>属性名称</th>
                                         <th>属性值</th>
-                                        <th>所属分类</th>
+                                        <th>所属商品</th>
                                         <th>操作</th>
                                     </tr>
                                 </thead>
@@ -76,7 +76,7 @@
                                         <td>{{$item->attr_name}}</td>
                                         <td><span class="pie">{{$item->attr_desc}}</span>
                                         </td>
-                                        <td>{{$item->type_id}}</td>
+                                        <td>{{$item->good_id}}</td>
                                         <td><a href="attr_del?id={{$item->id}}"><button type="button" class="btn btn-sm btn-primary"> 删除</button></a>
                                             <a href="attr_upd?id={{$item->id}}"><button type="button" class="btn btn-sm btn-primary"> 修改</button></a>
                                         </td>

@@ -45,11 +45,12 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <form method="POST" class="form-horizontal" action="submitattr">
+                        <form method="POST" class="form-horizontal" action="up_once">
                             @csrf
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">属性名称</label>
                                 <div class="col-sm-10">
+                                    <input type="hidden" name="id" value="{{$id}}">
                                     <input type="text" class="form-control" name="attr_name" value="{{$attr->attr_name}}"> 
                                 </div>
                             </div>
@@ -57,7 +58,6 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">是否显示
                                 </label>
-
                                 <div class="col-sm-10">
                                     <div class="radio i-checks">
                                         <label>
@@ -81,12 +81,12 @@
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">属性所属分类</label>
+                                <label class="col-sm-2 control-label">属性所属商品</label>
 
                                 <div class="col-sm-10">
                                     <select class="form-control m-b" name="type_id">
                                         @foreach ($type as $info)
-                                        <option value="{{$info->id}}">{{$info->type_name}}</option>
+                                        <option value="{{$info->id}}" selected="{{$attr->good_id == $info->id ? true : false}}">{{$info->good_name}}</option>
                                         @endforeach
                                     </select>
                                 </div>

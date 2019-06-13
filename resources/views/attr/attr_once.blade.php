@@ -57,7 +57,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">属性值所属父级</label>
                                 <div class="col-sm-10">
-                                    <select class="form-control m-b" name="f_id">
+                                    <select class="form-control m-b" name="id">
                                         @foreach ($type as $info)
                                         <option value="{{$info->id}}">{{$info->attr_name}}</option>
                                         @endforeach

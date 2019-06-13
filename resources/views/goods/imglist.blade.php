@@ -52,7 +52,6 @@
                                         <button type="button" class="btn btn-sm btn-primary" style="margin-right: 10px;"> 搜索</button> <a href="add_attr"><button type="button" class="btn btn-sm btn-primary"> 添加属性值</button></a></span>
 
                                 </div>
-
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -62,15 +61,8 @@
 
                                         <th></th>
                                         <th>商品名称</th>
-                                        <th>商品描述</th>
-                                        <th>商品售价</th>
-                                        <th>商品划线价</th>
                                         <th>商品主图</th>
-                                        <th>上下架状态</th>
-                                        <th>商品库存</th>
-                                        <th>商品所属分类</th>
-                                        <th>商品所属品牌</th>
-                                        <th>商品添加时间</th>
+                                        <th>商品副图</th>
                                         <th>操作</th>
                                     </tr>
                                 </thead>
@@ -81,23 +73,14 @@
                                             <input type="checkbox" class="i-checks" name="input[]">
                                         </td>
                                         <td>{{$item->good_name}}</td>
-                                        <td><span class="pie">{{$item->good_desc}}</span></td>
-                                        <td><span class="pie">{{$item->good_price}}</span></td>
-                                        <td><span class="pie">{{$item->good_opening_price}}</span></td>
                                         <td><img src="../uploads/{{$item->good_img}}" width="50px" height="50px"></td>
                                         <td>
-                                            @if($item->good_stauts==1)
-                                            上架
-                                            @else
-                                            下架
-                                            @endif
+                                        @foreach ($item->img_src as $i)
+                                            <img src="../uploads/{{$i->img_src}}" width="50px" height="50px">
+                                        @endforeach    
                                         </td>
-                                        <td>{{$item->good_inventory}}</td>
-                                        <td>{{$item->type_name}}</td>
-                                        <td>{{$item->brand_name}}</td>
-                                        <td>{{$item->good_addtime}}</td>
-                                        <td><a href="good_del?id={{$item->id}}"><button type="button" class="btn btn-sm btn-primary"> 删除</button></a>
-                                            <a href="good_upd?id={{$item->id}}"><button type="button" class="btn btn-sm btn-primary"> 修改</button></a>
+                                        <td>
+                                            <a href="auxiliary_img/{{$item->id}}"><button type="button" class="btn btn-sm btn-primary">编辑副图</button></a>
                                         </td>
                                     </tr>
                                     @endforeach

@@ -78,7 +78,7 @@
                         <h5>商品属性添加</h5>
                     </div>
                     <div class="ibox-content">
-                        <form method="POST" class="form-horizontal" action="add" enctype="multipart/form-data">
+                        <form method="POST" class="form-horizontal" action="good_upd" enctype="multipart/form-data">
                             @csrf
                             
                             <div class="hr-line-dashed"></div>
@@ -86,9 +86,9 @@
                                 <label class="col-sm-2 control-label">商品所属分类</label>
                                 <div class="col-sm-10">
                                     <select class="form-control m-b" name="type_id" id="type">
-                                    	<option>请选择</option>
+                                    	<option>暂无</option>
                                         @foreach ($type as $info)
-                                        <option value="{{$info->id}}">{{$info->type_name}}</option>
+                                        <option value="{{$info->id}}" selected="{{$goodinfo->type_id == $info->id ? true:false}}">{{$info->type_name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -98,9 +98,9 @@
                                 <div class="col-sm-10">
                                 	<div id="t01">
                                     <select class="form-control m-b" name="brand_id">
-                                        <option>请选择</option>
-                                        @foreach ($brand as $info)
-                                            <option value="{{$info->id}}">{{$info->brand_name}}</option>
+                                        <option>暂无</option>
+                                         @foreach ($type as $info)
+                                        <option value="{{$info->id}}" selected="{{$goodinfo->brand_id == $info->id ? true:false}}">{{$info->type_name}}</option>
                                         @endforeach
                                     </select>
                                     </div>
@@ -109,25 +109,25 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">商品名称</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="good_name"> 
+                                    <input type="text" class="form-control" name="good_name" value="{{$goodinfo->good_name}}"> 
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">商品描述</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="good_desc"> 
+                                    <input type="text" class="form-control" name="good_desc" value="{{$goodinfo->good_desc}}"> 
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">商品售价</label>
                                 <div class="input-group m-b"><span class="input-group-addon">&yen;</span>
-                                    <input type="text" class="form-control" name="good_price"><span class="input-group-addon">.00</span>
+                                    <input type="text" class="form-control" name="good_price" value="{{$goodinfo->good_price}}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">商品划线价</label>
                                 <div class="input-group m-b"><span class="input-group-addon">&yen;</span>
-                                    <input type="text" class="form-control" name="good_opening_price"><span class="input-group-addon">.00</span>
+                                    <input type="text" class="form-control" name="good_opening_price" value="{{$goodinfo->good_opening_price}}">
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
@@ -144,8 +144,8 @@
                                 <div class="col-sm-10">
                                     <div class="radio i-checks">
                                         <label>
-                                            <input type="radio" value="0" name="good_status"> <i></i>下架
-                                            <input type="radio" value="1" name="good_status"> <i></i>上架
+                                            <input type="radio" value="0" name="good_status" checked="{{$goodinfo->good_status == 0?true:''}}"> <i></i>下架
+                                            <input type="radio" value="1" name="good_status" checked="{{$goodinfo->good_status == 1?true:''}}"> <i></i>上架
                                         </label>
                                     </div>
                                 </div>
@@ -154,7 +154,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">商品库存</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="good_inventory"> 
+                                    <input type="text" class="form-control" name="good_inventory" value="{{$goodinfo->good_inventory}}"> 
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
@@ -221,10 +221,8 @@
             $('.i-checks').iCheck({
                 checkboxClass: 'icheckbox_square-green',
                 radioClass: 'iradio_square-green',
-            });
-            
+            }); 
         });
-        
     </script>
 </body>
 

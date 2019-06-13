@@ -86,4 +86,3 @@ class MyController extends Controller
         $child[$datum['id']]['child'] = $this->getTree($menu_data2, $datum['id']); } } 
       return $child;
      }
-}

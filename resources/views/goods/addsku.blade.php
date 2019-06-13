@@ -2,11 +2,7 @@
 <html>
 
 <head>
-    <style type="text/css" style="display: block; contenteditable">
-        html{
-            background: blue;
-        }
-    </style>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -20,6 +16,7 @@
     <link href="../css/plugins/iCheck/custom.css" rel="stylesheet">
     <link href="../css/animate.css" rel="stylesheet">
     <link href="../css/style.css?v=4.1.0" rel="stylesheet">
+    
     <link type="text/css" rel="stylesheet" href="../css/liandong.css">
 </head>
 
@@ -58,7 +55,7 @@
         </div>
     </div>
     </form>
-    
+    <input type="hidden" name="limit_id" id="limit_id" value="0">
 </div>
             </div>
         </div>
@@ -160,7 +157,7 @@
                     $.each(res.good_sku,function(k,v){
                         tables2+='<tr>';
                         tables2+='<td>'+v.id+'</td>';
-                        tables2+='<td>'+v.sku_code+'</td>';
+                        tables2+='<td>'+v.sku_id+'</td>';
                         tables2+='<td>'+v.sku_desc+'</td>';
                         tables2+='<td>'+v.price+'</td>';
                         tables2+='<td>'+v.inventory+'</td>';
@@ -178,17 +175,19 @@
         })
         $(document).on('click','#Button1',function(){
             var ids=[];
+            var limit_id=$('#limit_id').val();
             $('.Father_Item0 .chcBox_Width:checked').each(function(){
                 ids.push($(this).val());
             })
             var tr="<tr>";
             $.each(ids,function(k,v){
-                tr+="<td><input name='"+k+"[]' value='"+v+"'></td>";    
+                tr+="<td><input name='"+limit_id+"[]' value='"+v+"'></td>";    
             })
             tr+="<td><input type='text' name='price[]'></td>";
             tr+="<td><input type='text' name='inventory[]'></td>";
             tr+="</tr>";
             $('#t01').append(tr);
+            $('#limit_id').val(Number(limit_id)+1);
         })
         $(document).on('click','#Button2',function(){
             id=$('.good').val();

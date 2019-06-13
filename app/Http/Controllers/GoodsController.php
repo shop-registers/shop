@@ -274,6 +274,7 @@ class GoodsController extends Controller
         unset($data['type_id']);
         $inventory=$data['inventory'];
         unset($data['inventory']);
+        unset($data['limit_id']);
         $arr=[];
         foreach ($data as $key => $value) {
             $arr[$key]['sku_id']=$this->sku_code($good_id,$type_id);
@@ -300,13 +301,18 @@ class GoodsController extends Controller
         unset($data['good_id']);
         unset($data['type_id']);
         unset($data['inventory']);
+        unset($data['limit_id']);
         $arr=[];
         foreach ($data as $key => $value) {
             $arr['sku_desc'][]=implode(',',$value);
         }
-        $info=Goods_sku::where('goods_id',$good_id)->get()->toArray();
-        $res=array_diff($arr,$info);
-        return $res;
+        $info=Goods_sku::where('goods_id',$good_id)->select('sku_desc')->get()->toArray();
+        $res=in_array($arr['sku_desc'],$info);
+        if($res){
+            return 1;
+        }else{
+            return 2;
+        }
     }
     /**
    	 * 笛卡尔积算法
@@ -408,7 +414,7 @@ class GoodsController extends Controller
         }else{
             $data=$request->input();
             $true=$this->sku_fill($data);
-            if(empty($true)){
+            if($true==1){
                 return view('success')->with([
                     //跳转信息
                     'message'=>'已经存在相同的数据',
@@ -437,4 +443,5 @@ class GoodsController extends Controller
             }
         }
     }
+}
 }

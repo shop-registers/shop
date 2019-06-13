@@ -50,16 +50,22 @@
                 <table id="t01" class="table table-striped">
                     
                 </table>
-                <button type='submit' id='Button2' class='btn btn-w-m btn-primary l-button'>提交</button>
+                <button type='submit'  class='btn btn-w-m btn-primary l-button'>提交</button>
             
         </div>
     </div>
     </form>
+    
 </div>
             </div>
         </div>
+        
     </div>
-
+    <div id="t03">
+        
+                            
+            
+    </div>
     <div id="modal-form" class="modal fade" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -131,12 +137,13 @@
                 type:"GET",
                 dataType:"json",
                 success:function(res){
-                    $.each(res,function(k,v){
+                    $.each(res.attr,function(k,v){
                         v.attr_desc=v.attr_desc.split(',');
                     })
                     var str="<div position='center'><div style='padding: 5px 8px;' class='div_content'><div class='div_contentlist'>";
                     var tables="<tr>";
-                    $.each(res,function(k,v){
+                    var tables2='<div id="navtab2" style="width: 960px; margin:0 auto; padding:20px; border: 1px solid #A3C0E8;"><table id="t02" class="table table-striped"><tr><th>sku_id</th><th>sku_code</th><th>sku属性</th><th>价格</th><th>库存</th></tr>';
+                    $.each(res.attr,function(k,v){
                         tables+="<th>"+v.attr_name+"</th>";
                         str+="<ul class='Father_Title'><li>"+v.attr_name+"</li></ul>";
                         str+="<ul class='Father_Item0'>";
@@ -147,11 +154,21 @@
                         str+="</ul><br/>";
                     })
                     str+="</div><div class='div_contentlist2'><ul><li><div id='createTable'></div></li></ul><ul><li><button type='button' id='Button1' class='btn btn-w-m btn-primary l-button' style='margin-right:10px'>生成</button><button type='button' id='Button2' class='btn btn-w-m btn-primary l-button' style='margin-right:10px'>一键生成</button></li></ul></div></div></div>";
-
+                    $.each(res.good_sku,function(k,v){
+                        tables2+='<tr>';
+                        tables2+='<td>'+v.id+'</td>';
+                        tables2+='<td>'+v.sku_code+'</td>';
+                        tables2+='<td>'+v.sku_desc+'</td>';
+                        tables2+='<td>'+v.price+'</td>';
+                        tables2+='<td>'+v.inventory+'</td>';
+                        tables2+='</tr>';
+                    })
                     tables+="<th>成本价</th>";
                     tables+="<th>库存</th>";
                     tables+="</tr>";
+                    tables2+='</table></div>';
                     $('#t01').html(tables);
+                    $('#t03').html(tables2);
                     $('#Div1').html(str);
                 }
             })
@@ -163,7 +180,7 @@
             })
             var tr="<tr>";
             $.each(ids,function(k,v){
-                tr+="<td value='"+v+"'>"+v+"</td>";    
+                tr+="<td><input name='"+k+"[]' value='"+v+"'></td>";    
             })
             tr+="<td><input type='text' name='price[]'></td>";
             tr+="<td><input type='text' name='inventory[]'></td>";

@@ -12,12 +12,6 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
-Route::get('/', 'Mycontroller@index');
-Route::get('/uploads', function(){
-	return view('admin/uploads');
-});
-Route::get('/index_v1', 'Mycontroller@index_v1');
-
 
 /**
  * 商品属性模块

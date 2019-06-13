@@ -260,6 +260,14 @@ class GoodsController extends Controller
         $good_id=$data['good_id'];
         $type_id=$data['type_id'];
         $price=$data['price'];
+        //判断是否有中文的键
+        foreach ($data as $key => $value) {
+            if(preg_match('/^[\x{4e00}-\x{9fa5}]+$/u', $key) === 1){
+                unset($data[$key]);
+            }elseif(preg_match('/[\x{4e00}-\x{9fa5}]/u', $key) === 1){
+                unset($data[$key]);
+            }
+        }
         unset($data['_token']);
         unset($data['price']);
         unset($data['good_id']);
@@ -278,6 +286,14 @@ class GoodsController extends Controller
     }
 
     public function sku_fill($data){
+        //判断是否有中文的键
+        foreach ($data as $key => $value) {
+            if(preg_match('/^[\x{4e00}-\x{9fa5}]+$/u', $key) === 1){
+                unset($data[$key]);
+            }elseif(preg_match('/[\x{4e00}-\x{9fa5}]/u', $key) === 1){
+                unset($data[$key]);
+            }
+        }
         unset($data['_token']);
         unset($data['price']);
         $good_id=$data['good_id'];
@@ -291,13 +307,6 @@ class GoodsController extends Controller
         $info=Goods_sku::where('goods_id',$good_id)->get()->toArray();
         $res=array_diff($arr,$info);
         return $res;
-    }
-    /**
-     * sku码与属性的入库
-     */
-    public function Insert_sku(Request $request){
-    	
-        
     }
     /**
    	 * 笛卡尔积算法
@@ -398,34 +407,34 @@ class GoodsController extends Controller
             return view('goods/addsku',['type'=>$res]);
         }else{
             $data=$request->input();
-        $true=$this->sku_fill($data);
-        if(empty($true)){
-            return view('success')->with([
-                //跳转信息
-                'message'=>'已经存在相同的数据',
-                //自己的跳转路径
-                'url' =>'../goods/addsku',
-                //跳转路径名称
-                'urlname' =>'生成sku',
-                //跳转等待时间（s）
-                'jumpTime'=>3,
-            ]);
-        }else{
-            $arr=$this->data_change($data);
-            $res=Goods_sku::insert($arr);
-            if($res){
+            $true=$this->sku_fill($data);
+            if(empty($true)){
                 return view('success')->with([
                     //跳转信息
-                    'message'=>'修改成功',
+                    'message'=>'已经存在相同的数据',
                     //自己的跳转路径
                     'url' =>'../goods/addsku',
                     //跳转路径名称
-                    'urlname' =>'属性列表',
+                    'urlname' =>'生成sku',
                     //跳转等待时间（s）
                     'jumpTime'=>3,
                 ]);
-            }    
-        }
+            }else{
+                $arr=$this->data_change($data);
+                $res=Goods_sku::insert($arr);
+                if($res){
+                    return view('success')->with([
+                        //跳转信息
+                        'message'=>'修改成功',
+                        //自己的跳转路径
+                        'url' =>'../goods/addsku',
+                        //跳转路径名称
+                        'urlname' =>'属性列表',
+                        //跳转等待时间（s）
+                        'jumpTime'=>3,
+                    ]);
+                }    
+            }
         }
     }
 }

@@ -19,3 +19,5 @@ Route::get('/orderlist','orderController@orderlist');
 Route::get('/index','orderController@index');
 Route::any('/orderAdd','orderController@orderAdd');
 Route::post('/orderAdds','orderController@orderAdds');
+Route::any('/orderUpdate','orderController@orderUpdate');
+Route::any('/orderUpdates','orderController@orderUpdates');

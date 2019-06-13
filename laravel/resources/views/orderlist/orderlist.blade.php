@@ -83,6 +83,7 @@
                                 <th>发货状态</th>
                                 <th>订单状态</th>
                                 <th>下单时间</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -144,6 +145,7 @@
                                     @endswitch
                                  </th>
                                 <th>{{$v['create_time']}}</th>
+                                <th><a href="orderUpdate?id={{$v['order_id']}}">修改</a></th>
                             </tr>
                             @endforeach
 

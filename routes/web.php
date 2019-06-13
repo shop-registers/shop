@@ -33,3 +33,12 @@ Route::group(['prefix'=>'/'],function(){
 
 
 
+// 登录
+Route::get('/',"MyController@login");
+Route::post('/login_do',"MyController@login_do");
+//后台首页
+Route::get('/index',"MyController@index");
+Route::get("/index_v1","MyController@index_v1");
+//公共类
+Route::get("/common","CommonController@initialize");
+

@@ -56,21 +56,7 @@ class MyController extends Controller
     	return view("index_v1");
     }
 
-    ////递归方法
-    // function getTree($menu_data2, $pid)
-    // {
-    //     $tree = '';
-    //     foreach($menu_data2 as $k => $v)
-    //     {
-    //         if($v['pid'] == $pid)
-    //         {         //父亲找到儿子
-    //             $v['pid'] =$this->getTree($menu_data2, $v['id']);
-    //             $tree[] = $v;
-    //             unset($menu_data2[$k]);
-    //         }
-    //     }
-    //     return $tree;
-    // }
+    
      function getTree($menu_data2,$pid)
     {
         //初始化儿子 
@@ -86,3 +72,4 @@ class MyController extends Controller
         $child[$datum['id']]['child'] = $this->getTree($menu_data2, $datum['id']); } } 
       return $child;
      }
+}

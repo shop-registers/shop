@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\DB;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', "GoodsTypeController@index");
+// 登录
+Route::get('/',"MyController@login");
 //商品分类路由
 Route::group(['prefix'=>'/'],function(){
     Route::get('goodstype', "GoodsTypeController@goodsTypeList");
@@ -33,10 +33,6 @@ Route::group(['prefix'=>'/'],function(){
 });
 
 
-
-
-// 登录
-Route::get('/',"MyController@login");
 Route::post('/login_do',"MyController@login_do");
 //后台首页
 Route::get('/index',"MyController@index");
@@ -46,11 +42,9 @@ Route::get("/common","CommonController@initialize");
 
 
 
-Route::get('/', 'Mycontroller@index');
 Route::get('/uploads', function(){
 	return view('admin/uploads');
 });
-Route::get('/index_v1', 'Mycontroller@index_v1');
 
 
 /**
@@ -99,8 +93,6 @@ Route::group(['prefix'=>'/goods'],function(){
 	Route::any('/good_upd','GoodsController@Good_updata');//商品的修改页面与修改入库
 	
 });
-//首页
-Route::get('/index', 'Onlin_retailers@index');
 //添加角色
 Route::get('/add_role', 'Role@add_role');
 //管理员角色列表

@@ -42,8 +42,9 @@
     </div>
     <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" ><i class="layui-icon"></i><a
-                    href="/add_role">添加</a></button>
+{{--        <button class="layui-btn" ><i class="layui-icon"></i><a--}}
+{{--                    href="/add_role">添加</a></button>--}}
+        <a href="/add_role" class="layui-btn">添加角色</a>
         <span class="x-right" style="line-height:40px">共有数据：88 条</span>
     </xblock>
     <table class="layui-table">
@@ -55,33 +56,40 @@
             <th>ID</th>
             <th>角色名</th>
             <th>拥有权限规则</th>
-            <th>描述</th>
+{{--            <th>描述</th>--}}
             <th>状态</th>
-            <th>操作</th>
+{{--            <th>操作</th>--}}
         </thead>
         <tbody>
+        @foreach($a as $v)
         <tr>
             <td>
                 <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
             </td>
             <td>1</td>
-            <td>超级管理员</td>
-            <td>会员列表，问题列表</td>
-            <td>具有至高无上的权利</td>
-            <td class="td-status">
-                <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>
+            <td>{{$v['role']}}</td>
+            <td>
+            @foreach($v['role_rbac'] as $vals)
+{{--                @foreach($vals['rbac'] as $valss)--}}
+            {{$vals['rbac']['name']}},
+{{--                    @endforeach--}}
+            @endforeach
+            </td>
+{{--            <td class="td-status">--}}
+{{--                <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>--}}
             <td class="td-manage">
-                <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">
-                    <i class="layui-icon">&#xe601;</i>
-                </a>
-                <a title="编辑"  onclick="x_admin_show('编辑','role-add.html')" href="javascript:;">
+{{--                <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">--}}
+{{--                    <i class="layui-icon">&#xe601;</i>--}}
+{{--                </a>--}}
+                <a title="编辑"  onclick="x_admin_show('编辑','/upd_role')" href="javascript:;">
                     <i class="layui-icon">&#xe642;</i>
                 </a>
                 <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
                     <i class="layui-icon">&#xe640;</i>
                 </a>
-            </td>
+{{--            </td>--}}
         </tr>
+        @endforeach
         </tbody>
     </table>
     <div class="page">

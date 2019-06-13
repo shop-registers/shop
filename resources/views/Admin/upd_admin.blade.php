@@ -15,12 +15,13 @@
 
 </head>
 <body>
+
 <div class="row">
     <div class="col-sm-12">
         <div class="ibox float-e-margins">
+            <a href="/show_admin" class="layui-btn"><<返回</a>
             <h2><b>修改用户信息：</b></h2>
             <div class="ibox-content">
-                {{--                <form   class="form-horizontal">--}}
                 <div class="form-horizontal">
                     {{ csrf_field() }}
                     <div class="form-group">
@@ -36,7 +37,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">密码：</label>
                         <div class="col-sm-10">
-                            <input type="password" placeholder="您的密码"  value="{{$res->pwd}}"  name="pwd" class="form-control">
+                            <input type="text" placeholder="您的密码"  value="{{$res->password}}"  name="pwd" class="form-control">
                             <span id="pwd"></span>
                         </div>
                     </div>
@@ -52,7 +53,6 @@
                     <div class="hr-line-dashed"></div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">电话：</label>
-
                         <div class="col-sm-10">
                             <input type="tel" name="tel"  value="{{$res->tel}}"  placeholder="您的电话" class="form-control">
                             <span id="tel"></span>
@@ -61,12 +61,25 @@
                     <div class="hr-line-dashed"></div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">姓名：</label>
-
                         <div class="col-sm-10">
                             <input type="text" name="real_name"  value="{{$res->real_name}}"  placeholder="您的真实姓名" class="form-control">
                             <span id="real_name"></span>
                         </div>
                     </div>
+                    <input type="hidden" name="u_id" value="{{$res->id}}}">
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">选择角色</label>
+                        <div class="col-sm-10">
+                            <select class="form-control m-b" name="r_id">
+                                @foreach($data as $val)
+                                <option value="{{$val->id}}">{{$val->role}}</option>
+                                @endforeach
+                            </select>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="hr-line-dashed"></div>
                     <div class="form-group">
                         <div class="col-sm-4 col-sm-offset-2">
@@ -76,7 +89,6 @@
                     </div>
                 </div>
             </div>
-            {{--                </form>--}}
         </div>
     </div>
 </div>
@@ -95,17 +107,19 @@
         var real_name = $("[name='real_name']").val();
         var tel = $("[name='tel']").val();
         var id = $("[name='id']").val();
+        var r_id = $("[name='r_id']").val();
+        var u_id = $("[name='u_id']").val();
         $.ajax({
             url:"/upd",
-            data:{name:name,pwd:pwd,email:email,real_name:real_name,tel:tel},
+            data:{name:name,pwd:pwd,email:email,real_name:real_name,tel:tel,r_id:r_id,u_id:u_id},
             type:"get",
             dataType:"json",
             success:function(data)
             {
-
                 if(data == 1)
                 {
-                    layer.alert('添加成功', {icon: 1});
+                    layer.alert('修改成功', {icon: 1});
+                    history.go(0);
                 }
                 str = data.msg;
                 var arr = str.splice(',');

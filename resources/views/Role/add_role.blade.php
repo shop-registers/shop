@@ -21,6 +21,7 @@
 </head>
 
 <body>
+<a href="/show_role" class="layui-btn">返回</a>
 <div class="x-body">
     <form class="layui-form layui-form-pane" action="javascript:void(0)">
         <div class="layui-form-item">
@@ -109,7 +110,28 @@
                 headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' },
                 success:function(data)
                 {
-                    alert(data);
+                    if(data == 1)
+                    {
+                        layer.open({
+                            content: '添加成功',
+                            scrollbar: false
+                        });
+                        history.go(0);
+                    }
+
+                    if(data == 3)
+                    {
+                        layer.msg('角色不能重复');
+                        return false;
+                    }
+                    if(data == 4)
+
+                    if(data == 2)
+                    {
+                        layer.msg('请输入角色');
+                        return false;
+                    }
+
                 }
 
             });

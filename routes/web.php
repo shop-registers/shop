@@ -20,8 +20,12 @@ Route::get('/index', 'Onlin_retailers@index');
 Route::get('/add_role', 'Role@add_role');
 //管理员角色列表
 Route::get('/show_role', 'Role@show_role');
+//管理员修改
+Route::get('/upd_role', 'Role@upd_role');
 //添加管理员
 Route::get('/add_admin', 'Admin@add_admin');
+//删除管理员
+Route::get('/admin_del', 'Admin@admin_del');
 //列表展示管理员
 Route::get('/show_admin', 'Admin@show_admin');
 //添加表单

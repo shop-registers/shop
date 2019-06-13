@@ -2,7 +2,11 @@
 <html>
 
 <head>
-
+    <style type="text/css" style="display: block; contenteditable">
+        html{
+            background: blue;
+        }
+    </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -16,7 +20,6 @@
     <link href="../css/plugins/iCheck/custom.css" rel="stylesheet">
     <link href="../css/animate.css" rel="stylesheet">
     <link href="../css/style.css?v=4.1.0" rel="stylesheet">
-    
     <link type="text/css" rel="stylesheet" href="../css/liandong.css">
 </head>
 

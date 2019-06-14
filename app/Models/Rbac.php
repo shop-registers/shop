@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Rbac extends Model
 {
 	protected $table = 'rbac';
+	public $timestamps=false;
 
 }

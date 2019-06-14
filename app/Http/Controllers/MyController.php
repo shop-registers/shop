@@ -15,20 +15,61 @@ class MyController extends Controller
 	{
 		return view("login");
 	}
+    //验证滑动token
+    // public function check_token(Request $request)
+    // {
+    //     $token=$request->input('token');
+        
+    //     require PATHNAME.'\\php\\CaptchaClient.php';
+    //     return $token;
+    //     /**构造入参为appId和appSecret
+    //      * appId和前端验证码的appId保持一致，appId可公开
+    //      * appSecret为秘钥，请勿公开
+    //      * token在前端完成验证后可以获取到，随业务请求发送到后台，token有效期为两分钟**/
+    //     $appId = "46bd7c134151feb0265fd1ba9e2f5b7c";
+    //     $appSecret = "dce66af8d9ed36f86828dc55c4489d1d";
+    //     $client = new CaptchaClient($appId,$appSecret);
+    //     $client->setTimeOut(2);      //设置超时时间，默认2秒
+    //     # $client->setCaptchaUrl("http://cap.dingxiang-inc.com/api/tokenVerify");   
+    //     //特殊情况可以额外指定服务器，默认情况下不需要设置
+    //     $response = $client->verifyToken($token);
+    //     // echo $response->serverStatus;
+    //     //确保验证状态是SERVER_SUCCESS，SDK中有容错机制，在网络出现异常的情况会返回通过
+    //     if($response->result){
+    //         return 1;
+    //         /**token验证通过，继续其他流程**/
+    //     }else{
+    //         return 0;
+    //         /**token验证失败**/
+    //     }
+    // }
     public function login_do(Request $request)
     {
         $name=$request->input('name');
-        $password=$request->input('password');
+        $password=$request->input('pwd');
+        $last_time=time();
         //根本获取的数据去数据库中查询
         $res = Users::where(['name'=>$name,'password'=>$password])->first();
         //如果有就代表账号密码正确,写入session
-        if ($res->count()){
+        if ($res){
             $request->session()->put('name',$name);
             $request->session()->put('user_id',$res['id']);
-            return redirect('index')->with('tip', '登录成功');;
+            $user_id=$res['id'];
+            //修改登录最后时间字段
+            if(Users::where(['id'=>$user_id])->update(['last_time'=>$last_time]))
+            {
+                return 1;//登录成功
+            }elsE{
+                return 2; //修改失败
+            }          
         }
+        return $res;//登录失败
 
-
+    }
+    //重置密码
+    public function reset_password()
+    {
+        echo "258";
     }
 	// 后台首页
     public function index(Request $request)

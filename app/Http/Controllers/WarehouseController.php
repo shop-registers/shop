@@ -34,10 +34,34 @@ class WarehouseController extends Controller
     		echo 2;die;
     	}
 
-}
+    }
     //仓库列表
     public function WarehouseShow()
     {
+        $data = Warehouse::paginate(5);
+    	return view('warehouse.WarehouseShow',['data'=>$data]);
+    }
+    //仓库删除
+    public function WarehouseDel(Request $request)
+    {
+        $warehouse_id = $request['id'];
+        $info = warehouse::where('warehouse_id',$warehouse_id)->delete();
+        if($info)
+        {
+            echo "<script>alert('删除成功');location.href='WarehouseShow'</script>";
+        }
+        else
+        {
+            echo "<script>alert('删除失败');location.href='WarehouseShow'</script>";
+        }
+    }
+    //仓库修改
+    public function WarehouseUpdate(Request $request)
+    {
+        $warehouse_id = $request['id'];
+       $data = Add::where('p_id',0)->select('id','p_id','area_name')->get()->toArray();
 
+        $res = Warehouse::where('warehouse_id',$warehouse_id)->select()->get()->toArray();
+        return view('warehouse.WarehouseUpdate',['res'=>$res,'data'=>$data]);
     }
 }

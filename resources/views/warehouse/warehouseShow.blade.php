@@ -45,54 +45,68 @@
                         </a>
                     </div>
                 </div>
-                <div class="ibox-content">
-                    <div class="row">
-                        <div class="col-sm-5 m-b-xs" class="btn">
-                            <select class="input-sm form-control input-s-sm inline btn">
-                                <option value="0" class="btn">请选择</option>
-                                <option value="1" >订单编辑</option>
-                                <option value="2" >订单状态管理</option>
-                            </select>
-                        </div>
-                        <div class="col-sm-4 m-b-xs">
-
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="input-group">
-                                <input type="text" placeholder="请输入关键词" class="input-sm form-control"> <span class="input-group-btn">
-                                        <button type="button" class="btn btn-sm btn-primary"> 搜索</button> </span>
-                            </div>
-                        </div>
-                    </div>
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
                             <tr>
 
                                 <th></th>
-{{--                                <th>编号</th>--}}
-                                <th>订单编号</th>
-                                <th>会员名称</th>
-                                <th>收货人姓名</th>
-                                <th>省</th>
-                                <th>区</th>
-                                <th>详细地址</th>
-                                <th>订单金额</th>
-                                <th>订单数量</th>
-                                <th>支付方式</th>
-                                <th>发货状态</th>
-                                <th>订单状态</th>
-                                <th>下单时间</th>
-                                <th>操作</th>
+                                <th>仓库名称</th>
+                                <th>仓库编码</th>
+                                <th>仓库是否启用</th>
+                                <th>仓库所在地区</th>
+                                <th>仓库所在区</th>
+                                <th>仓库服务地区</th>
+                                <th>操　　作</th>
                             </tr>
                             </thead>
                             <tbody>
+                                
+                                @foreach($data as $v)
+                                <tr>
+                                <th></th>
+                                <th>{{$v['warehouse_name']}}</th>
+                                <th>{{$v['warehouse_code']}}</th>
+                                <th>
+                                    @if($v['warehouse_status'] == 1)
+                                    启用
+                                    @else
+                                    禁用
+                                    @endif
 
-
+                                </th>
+                                <th>{{$v['warehouse_province']}}</th>
+                                <th>{{$v['warehouse_city']}}</th>
+                                <th>{{$v['warehouse_area']}}</th>
+                                <th>
+                                    
+                                    <a href="/WarehouseDel?id={{$v['warehouse_id']}}">
+                                        
+                                        
+                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                        <span class="glyphicon-class"></span>
+                                    
+                                    </a>　
+                                    <a href="/WarehouseUpdate?id={{$v['warehouse_id']}}">
+                                        
+                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                        <span class="glyphicon-class"></span>
+                                        
+                                    </a>
+                                </th>
+                                <th>
+                                    
+                                </th>
+                                </tr>
+                                @endforeach
                             </tbody>
 
                         </table>
+                        <div align="center">
+                            {{ $data->links() }}
+                        </div>
                         
+
                     </div>
 
                 </div>

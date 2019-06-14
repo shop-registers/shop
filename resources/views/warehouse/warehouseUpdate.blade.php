@@ -72,13 +72,13 @@
                         <div class="form-group draggable">
                             <label class="col-sm-3 control-label">仓库名称：</label>
                             <div class="col-sm-9">
-                                <input type="text" name="warehouse_name" class="warehouse_name" placeholder="请输入仓库名称">
+                                <input type="text" name="warehouse_name" class="warehouse_name" value="{{$res[0]['warehouse_name']}}" ="请输入仓库名称">
                             </div>
                         </div>
                         <div class="form-group draggable">
                             <label class="col-sm-3 control-label">仓库编码：</label>
                             <div class="col-sm-9">
-                                <input type="text" class="warehouse_code" name="warehouse_code" placeholder="请输入收货人">
+                                <input type="text" class="warehouse_code" name="warehouse_code" value="{{$res[0]['warehouse_code']}}">
                             </div>
                         </div>
 
@@ -88,9 +88,9 @@
 
                             <div class="col-sm-9">
                                 <label class="radio-inline">
-                                    <input type="radio" checked="" value="1" id="optionsRadios1" name="warehouse_status"  class="warehouse_status">是</label>
+                                    <input type="radio" {{$res[0]['warehouse_status'] == 1 ? "checked":""}} value="1" id="optionsRadios1" name="warehouse_status"  class="warehouse_status">是</label>
                                 <label class="radio-inline">
-                                    <input type="radio" value="2" id="optionsRadios2" name="warehouse_status" class="warehouse_status">否</label>
+                                    <input type="radio" {{$res[0]['warehouse_status'] == 2 ? "checked":""}} value="2" id="optionsRadios2" name="warehouse_status" class="warehouse_status">否</label>
                             </div>
                         </div>
 

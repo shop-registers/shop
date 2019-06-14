@@ -87,90 +87,12 @@
                             </tr>
                             </thead>
                             <tbody>
-                           @foreach($data as $v)
-                            <tr>
-                                <th><input type="checkbox"></th>
-{{--                                <th>{{$v['order_id']}}</th>--}}
-                                <th>{{$v['order_sn']}}</th>
-                                <th>{{$v['customer_name']}}</th>
-                                <th>{{$v['shipping_user']}}</th>
-                                <th>{{$v['province']}}</th>
-                                <th>{{$v['city']}}</th>
-                                <th>{{$v['address']}}</th>
-                                <th>{{$v['order_money']}}</th>
-                                <th>{{$v['order_num']}}</th>
-                                <th>
-                                    @switch($v['payment_method'])
-                                        @case(0)
-                                        货到付款
-                                        @break
-                                        @case(1)
-                                        余额
-                                        @break
-                                        @case(2)
-                                        网银
-                                        @break
-                                        @case(3)
-                                        支付宝
-                                        @break
-                                        @case(4)
-                                        微信
-                                        @break
-                                    @endswitch
-                                </th>
-                                <th>
-                                    @switch($v['shipping'])
-                                        @case(0)
-                                        未发货
-                                        @break
-                                        @case(1)
-                                        已发货
-                                        @break
-                                        @case(2)
-                                        已取消
-                                        @break
-                                    @endswitch
-                                </th>
-                                <th>
-                                    @switch($v['order_status'])
-                                        @case(0)
-                                        待确认
-                                        @break
-                                        @case(1)
-                                        已确认
-                                        @break
-                                        @case(2)
-                                        已取消
-                                        @break
-                                    @endswitch
-                                 </th>
-                                <th>{{$v['create_time']}}</th>
-                                <th>
-                                    <a href="orderUpdate?id={{$v['order_id']}}">
-                                    <li>
-                                      <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                      <span class="glyphicon-class"></a></span>
-                                    </li>
 
-
-                   
-                                </th>
-                                <th>
-                                    
-                                    <a href="orderDelete?id={{$v['order_id']}}">
-                                    <li>
-                                      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                      <span class="glyphicon-class"></span>
-                                    </li>
-                                    </a>
-                                </th>
-                            </tr>
-                            @endforeach
 
                             </tbody>
 
                         </table>
-                        {{ $data->links() }}
+                        
                     </div>
 
                 </div>

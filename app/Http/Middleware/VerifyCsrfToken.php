@@ -23,5 +23,7 @@ class VerifyCsrfToken extends Middleware
         'orderAdds',
         'orderUpdate',
         'orderUpdates',
+        'WarehouseAdd',
+        'WarehouseAdds',
     ];
 }

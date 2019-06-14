@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Good_attr;
@@ -260,12 +261,21 @@ class GoodsController extends Controller
         $good_id=$data['good_id'];
         $type_id=$data['type_id'];
         $price=$data['price'];
+        //判断是否有中文的键
+        foreach ($data as $key => $value) {
+            if(preg_match('/^[\x{4e00}-\x{9fa5}]+$/u', $key) === 1){
+                unset($data[$key]);
+            }elseif(preg_match('/[\x{4e00}-\x{9fa5}]/u', $key) === 1){
+                unset($data[$key]);
+            }
+        }
         unset($data['_token']);
         unset($data['price']);
         unset($data['good_id']);
         unset($data['type_id']);
         $inventory=$data['inventory'];
         unset($data['inventory']);
+        unset($data['limit_id']);
         $arr=[];
         foreach ($data as $key => $value) {
             $arr[$key]['sku_id']=$this->sku_code($good_id,$type_id);
@@ -278,26 +288,32 @@ class GoodsController extends Controller
     }
 
     public function sku_fill($data){
+        //判断是否有中文的键
+        foreach ($data as $key => $value) {
+            if(preg_match('/^[\x{4e00}-\x{9fa5}]+$/u', $key) === 1){
+                unset($data[$key]);
+            }elseif(preg_match('/[\x{4e00}-\x{9fa5}]/u', $key) === 1){
+                unset($data[$key]);
+            }
+        }
         unset($data['_token']);
         unset($data['price']);
         $good_id=$data['good_id'];
         unset($data['good_id']);
         unset($data['type_id']);
         unset($data['inventory']);
+        unset($data['limit_id']);
         $arr=[];
         foreach ($data as $key => $value) {
             $arr['sku_desc'][]=implode(',',$value);
         }
-        $info=Goods_sku::where('goods_id',$good_id)->get()->toArray();
-        $res=array_diff($arr,$info);
-        return $res;
-    }
-    /**
-     * sku码与属性的入库
-     */
-    public function Insert_sku(Request $request){
-    	
-        
+        $info=Goods_sku::where('goods_id',$good_id)->select('sku_desc')->get()->toArray();
+        $res=in_array($arr['sku_desc'],$info);
+        if($res){
+            return 1;
+        }else{
+            return 2;
+        }
     }
     /**
    	 * 笛卡尔积算法
@@ -398,34 +414,35 @@ class GoodsController extends Controller
             return view('goods/addsku',['type'=>$res]);
         }else{
             $data=$request->input();
-        $true=$this->sku_fill($data);
-        if(empty($true)){
-            return view('success')->with([
-                //跳转信息
-                'message'=>'已经存在相同的数据',
-                //自己的跳转路径
-                'url' =>'../goods/addsku',
-                //跳转路径名称
-                'urlname' =>'生成sku',
-                //跳转等待时间（s）
-                'jumpTime'=>3,
-            ]);
-        }else{
-            $arr=$this->data_change($data);
-            $res=Goods_sku::insert($arr);
-            if($res){
+            $true=$this->sku_fill($data);
+            if($true==1){
                 return view('success')->with([
                     //跳转信息
-                    'message'=>'修改成功',
+                    'message'=>'已经存在相同的数据',
                     //自己的跳转路径
                     'url' =>'../goods/addsku',
                     //跳转路径名称
-                    'urlname' =>'属性列表',
+                    'urlname' =>'生成sku',
                     //跳转等待时间（s）
                     'jumpTime'=>3,
                 ]);
-            }    
-        }
+            }else{
+                $arr=$this->data_change($data);
+                $res=Goods_sku::insert($arr);
+                if($res){
+                    return view('success')->with([
+                        //跳转信息
+                        'message'=>'修改成功',
+                        //自己的跳转路径
+                        'url' =>'../goods/addsku',
+                        //跳转路径名称
+                        'urlname' =>'属性列表',
+                        //跳转等待时间（s）
+                        'jumpTime'=>3,
+                    ]);
+                }    
+            }
         }
     }
+}
 }

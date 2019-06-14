@@ -18,6 +18,10 @@
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
 </head>
 
 <body>
@@ -74,7 +78,7 @@
             @foreach($v->role_rbac as $vals)
 
            @if($vals->rbac)
-               {{$vals->rbac->name}}
+               {{$vals->rbac->name}},
                @endif
             @endforeach
 

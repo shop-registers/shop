@@ -2,7 +2,9 @@
 
 
 namespace App\Http\Controllers;
+use App\Shop_admin_role;
 use App\Shop_admin_users;
+use App\Shop_admin_user_role;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -19,7 +21,8 @@ class Admin extends Controller
     //添加角色
     public function add_admin()
     {
-        return view('/admin/add_admin');
+        $data = Shop_admin_role::all();
+        return view('/admin/add_admin',['data'=>$data]);
     }
     //添加表单
     public function haha(Request $request)
@@ -55,23 +58,36 @@ class Admin extends Controller
             $errMessages=['errcode'=>1, 'msg'=>$validatorErrs];
             return  json_encode($errMessages,JSON_UNESCAPED_UNICODE);
         }
-        $data['last_time']=time();
-          $add_user = new Shop_admin_users;
-          $res = $add_user->insert($data);
-          if($res)
-          {
-              return 1;
-          }
+        $arr['last_time']=time();
+        $arr['name'] = $data['name'];
+        $arr['password'] = $data['password'];
+        $arr['email'] = $data['email'];
+        $arr['real_name'] = $data['real_name'];
+        $arr['tel'] = $data['tel'];
+        $role_id = $data['r_id'];
+//        print_r($data);die;
+        $add_user = Shop_admin_users::insertGetId($arr);
+        if($add_user)
+        {
+             $res = Shop_admin_user_role::insert(['r_id'=>$role_id,'u_id'=>$add_user]);
+             if($res)
+             {
+                 return 1;die;
+             }
+
+        }
+
+
     }
 
     //列表展示角色
     public function show_admin()
     {
-        $page = Input::get('page')?Input::get('page'):1;
-        $minutes = 120;
-        $res = Cache::remember('brand'.$page,$minutes,function(){
-            return Shop_admin_users::paginate(3);
-        });
+//        $page = Input::get('page')?Input::get('page'):1;
+//        $minutes = 120;
+//        $res = Cache::remember('brand'.$page,$minutes,function(){
+            $res = Shop_admin_users::paginate(3);
+//        });
         foreach($res as $key => $val)
         {
             $res[$key]['time'] = date('Y-m-d H:i:s',$val['last_time']);
@@ -124,9 +140,9 @@ class Admin extends Controller
         $data = $request->all();
         unset($data['_token']);
         $rules=[
-            'name'=>'unique:shop_admin_users,name|required|alpha_dash|between:2,30',
+            'name'=>'required|alpha_dash|between:2,30',
             'pwd'=>'required|between:8,30',
-            'email'=>'unique:shop_admin_users,email|required|email',
+            'email'=>'required|email',
             'tel'=>'required|digits:11',
             'real_name'=>'required|alpha_dash|between:2,4',
         ];
@@ -134,12 +150,12 @@ class Admin extends Controller
             'name.min'=>'name',
             'name.required'=>'name',
             'name.alpha_dash'=>'name',
-            'name.unique'=>'names',
+//            'name.unique'=>'names',
             'pwd.required'=>'pwd',
             'pwd.between'=>'pwd',
             'email.required'=>'email',
             'email.email'=>'email',
-            'email.unique'=>'emails',
+//            'email.unique'=>'emails',
             'tel.required'=>'tel',
             'tel.digits'=>'tel',
             'real_name.required'=>'real_name',

@@ -67,6 +67,22 @@
                             <span id="real_name"></span>
                         </div>
                     </div>
+
+                    <div class="hr-line-dashed"></div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">选择角色</label>
+                        <div class="col-sm-10">
+                            <select class="form-control m-b" name="r_id">
+                                @foreach($data as $val)
+                                    <option value="{{$val->id}}">{{$val->role}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
                     <div class="hr-line-dashed"></div>
                     <div class="form-group">
                         <div class="col-sm-4 col-sm-offset-2">
@@ -93,9 +109,10 @@
         var email = $("[name='email']").val();
         var real_name = $("[name='real_name']").val();
         var tel = $("[name='tel']").val();
+        var r_id = $("[name='r_id']").val();
         $.ajax({
             url:"/haha",
-            data:{name:name,password:password,email:email,real_name:real_name,tel:tel},
+            data:{name:name,password:password,email:email,real_name:real_name,tel:tel,r_id:r_id},
             type:"get",
             dataType:"json",
             success:function(data)
@@ -112,16 +129,17 @@
                     // alert(arr[i]);return;
                     if(arr[i]=='name')
                     {
-                        layer.tips('名字不能为空、最小4位字符', '#names');
+                        layer.tips('账号不能为空、最小4位字符', '#names');
                         return false;
 
                     }
+
                     if(arr[i]=='names')
                     {
-                        layer.tips('账号已注册', '#names');
+                        layer.tips('用户已注册、', '#names');
                         return false;
-
                     }
+
                     if(arr[i]=='pwd')
                     {
                         layer.tips('密码不能为空、最小8位字符', '#pwd');
@@ -132,11 +150,13 @@
                         layer.tips('邮箱不能为空、格式不对', '#email');
                         return false;
                     }
+
                     if(arr[i]=='emails')
                     {
                         layer.tips('邮箱已注册', '#email');
                         return false;
                     }
+
                     if(arr[i]=='tel')
                     {
                         layer.tips('号码不能为空、必须十一位数字组成', '#tel');

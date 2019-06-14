@@ -59,7 +59,7 @@
                         </td>
                         <td>
                             <div class="layui-input-block">
-                                @foreach($val['son'] as $vals)
+                                @foreach($val['son'] as $key => $vals)
                                     @if(isset($a))
                                         @if(in_array($vals['id'],$a))
                                         <input name="id[]" lay-skin="primary" checked class="auths" type="checkbox" value="{{$vals['id']}}" title="{{$vals['name']}}" >
@@ -83,14 +83,11 @@
     </form>
 </div>
 {{--<script src="/dsh/jq.js"></script>--}}
-
 <script>
     layui.use(['form','layer'], function(){
         $ = layui.jquery;
         var form = layui.form
             ,layer = layui.layer;
-
-
         //自定义验证规则
         form.verify({
             nikename: function(value){
@@ -122,16 +119,14 @@
                 headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' },
                 success:function(data)
                 {
-
-
                     if(data == 1)
                     {
                         layer.open({
                             content: '修改成功',
                             scrollbar: false
                         });
-                        // history.go(0);
                     }
+
 
                     if(data == 3)
                     {

@@ -70,7 +70,7 @@ class Role extends Controller
     //列表展示角色
     public function show_role()
     {
-        $a = Shop_admin_role::with('role_rbac.rbac')->paginate(2);
+        $a = Shop_admin_role::with('role_rbac.rbac')->paginate(5);
 //        print_r($a);die;
 //        dd($a[0]->role_rbac[1]->rbac->name);
         return view('/role/show_role',['a'=>$a]);
@@ -91,7 +91,6 @@ class Role extends Controller
         if(isset($a))
         {
             return view('/role/upd_role',['res'=>$res,'name'=>$name,'a'=>$a,'id'=>$id]);
-
         }
         else
         {

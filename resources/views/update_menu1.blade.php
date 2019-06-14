@@ -45,31 +45,31 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <form method="post" class="form-horizontal" action="add_menu">
+                        <form method="post" class="form-horizontal" action="update_menu2">
                         <input type="hidden" name="_token" value="<?php echo csrf_token();?>">
+                        <input type="hidden" value="{{$data['id']}}" name="id">
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">菜单名称：</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="name"> <span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
+                                    <input type="text" class="form-control" name="name" value="{{$data['name']}}"><span class="help-block m-b-none">帮助文本，可能会超过一行，以块级元素显示</span>
                                 </div>
                             </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                       <!--      <div class="form-group">
                                 <label class="col-sm-2 control-label">控制器：</label>
 
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" placeholder="如：MyController" name="controller">
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label class="col-sm-2 control-label">方法名称：</label>
 
                                 <div class="col-sm-10">
                                     <input type="text" placeholder="如：add_user" class="form-control" name="action">
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="hr-line-dashed"></div>
                          
                             <div class="hr-line-dashed"></div>
@@ -90,19 +90,20 @@
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">菜单级别：</label>
 
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">菜单排序：</label>
                                 <div class="col-sm-10">
-                                    <select class="form-control m-b" name="pid">
-                                        <option value="0">默认（级别为0）</option>
-                                        @foreach($data as $v)
-                                        <option value="{{$v['id']}}">{{$v['name']}}</option>
-                                        @endforeach
+                                    <select class="form-control m-b" name="">
+                                        <option value="">===请选择===</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
+                                        <option value="">4</option>
+                                        <option value="">5</option>
                                     </select>
                                 </div>
                             </div>
-
 
                             <div class="hr-line-dashed"></div>
 
@@ -110,47 +111,10 @@
                             <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
                                     <button class="btn btn-primary" type="submit">保存内容</button>
-                                    <button class="btn btn-white" type="submit">取消</button>
+                                    <button class="btn btn-white" type="reset">取消</button>
                                 </div>
                             </div>
                         </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-form" class="modal fade" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-6 b-r">
-                            <h3 class="m-t-none m-b">登录</h3>
-                            <form role="form">
-                                <div class="form-group">
-                                    <label>用户名：</label>
-                                    <input type="email" placeholder="请输入用户名" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label>密码：</label>
-                                    <input type="password" placeholder="请输入密码" class="form-control">
-                                </div>
-                                <div>
-                                    <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>登录</strong>
-                                    </button>
-                                    <label>
-                                        <input type="checkbox" class="i-checks">自动登录</label>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-sm-6">
-                            <h4>还不是会员？</h4>
-                            <p>您可以注册一个账户</p>
-                            <p class="text-center">
-                                <a href="form_basic.html"><i class="fa fa-sign-in big-icon"></i></a>
-                            </p>
-                        </div>
                     </div>
                 </div>
             </div>

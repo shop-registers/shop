@@ -35,3 +35,4 @@ Route::any('/WarehouseShow','WarehouseController@WarehouseShow');
 Route::any('/WarehouseDel','WarehouseController@WarehouseDel');
 //仓库修改
 Route::any('/WarehouseUpdate','WarehouseController@WarehouseUpdate');
+Route::any('/WarehouseUpdates','WarehouseController@WarehouseUpdates');

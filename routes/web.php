@@ -20,8 +20,14 @@ Route::get('/index', 'Onlin_retailers@index');
 Route::get('/add_role', 'Role@add_role');
 //管理员角色列表
 Route::get('/show_role', 'Role@show_role');
-//管理员修改
-Route::get('/upd_role', 'Role@upd_role');
+//管理员角色修改
+Route::get('/upd_role/{id}', 'Role@upd_role');
+//管理员删除角色
+Route::get('/del_role', 'Role@del_role');
+//管理员角色修改数据
+Route::post('/upd_roles/', 'Role@upd_roles');
+//获取权限id
+Route::get('/get_rbac_id/{id}', 'Role@upd_role');
 //添加管理员
 Route::get('/add_admin', 'Admin@add_admin');
 //删除管理员

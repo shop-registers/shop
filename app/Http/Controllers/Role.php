@@ -26,20 +26,7 @@ class Role extends Controller
     }
 
 
-    //无限极分类
-    public function reat($data,$pid=0)
-    {
-         $tree = [];
-        foreach ($data as $key => $v)
-        {
-            if($v['pid'] == $pid)
-            {
-                $v['son'] = $this->reat($data,$v['id']);
-                $tree[] = $v;
-            }
-        }
-        return $tree;
-    }
+
 
     //添加角色
     public function add_roles(Request $request)
@@ -83,41 +70,136 @@ class Role extends Controller
     //列表展示角色
     public function show_role()
     {
-
-        $a = Shop_admin_role::with('role_rbac.rbac')->get()->toArray();
+        $a = Shop_admin_role::with('role_rbac.rbac')->paginate(5);
 //        print_r($a);die;
-//        $role_rbac = Shop_admin_role::leftjoin('shop_admin_role_rbac','shop_admin_role.id','=','shop_admin_role_rbac.role_id')->get()->toArray();
-//        $role_rbac = Shop_admin_role::get()->toArray();
-//        foreach ($role_rbac as $key => $val)
-//        {
-//
-////            print_r($arr);die;
-//            $role_id = $val['id'];
-//            $role_rbac = Shop_admin_role_rbac::where('role_id',$role_id)
-//            ->get()->toArray();
-//            foreach ($role_rbac as $key2 =>$val2)
-//            {
-//                $rbac_id = $val2['rbac_id'];
-//                $res = Shop_admin_rbac::where('id',$rbac_id)
-//                    ->get()->toArray();
-//                $arrs[] = $res['0']['name'];
-////                print_r($arrs);die;
-//            }
-//            $arr[] = $role_rbac[$key];
-//            $arr[] = $arrs;
-//            $a = array_merge($arr,$arrs);
-//
-//        }
-//        print_r($arr);die;
-
-
+//        dd($a[0]->role_rbac[1]->rbac->name);
         return view('/role/show_role',['a'=>$a]);
     }
-
-    public function upd_role()
+    //修改角色权限
+    public function upd_role(Request $request)
     {
-        echo 2;die;
+        $id = $request->route('id');
+        $name = Shop_admin_role::with('role_rbac')->where('id',$id)->get()->toArray();
+        $data = Shop_admin_rbac::all()->toArray();
+        $res = $this->reat($data,$pid = 0);
+
+        //获取角色对应的权限
+        $arr = Shop_admin_role_rbac::select('rbac_id')->where('role_id',$id)->get()->toArray();
+        foreach ($arr as $item=>$value){
+            $a[] = $value['rbac_id'];
+        }
+        if(isset($a))
+        {
+            return view('/role/upd_role',['res'=>$res,'name'=>$name,'a'=>$a,'id'=>$id]);
+        }
+        else
+        {
+            return view('/role/upd_role',['res'=>$res,'name'=>$name,'id'=>$id]);
+        }
     }
+
+    //修改角色
+    public function upd_roles(Request $request)
+    {
+        $data = $request->all();
+        $role_id = $data['role_id'];
+        if(!isset($data['id']))
+        {
+            $res = Shop_admin_role_rbac::where('role_id',$role_id)->delete();
+            return 1;die;
+        }
+
+
+        $role = Shop_admin_role_rbac::where('role_id',$role_id)->get()->toArray();
+//        print_r($role);die;
+        if(empty($role))
+        {
+
+            $rbac_id = $data['id'];
+            $len = count($rbac_id);
+            for($i=0; $i<$len; $i++)
+            {
+                $rbac_ids = $rbac_id[$i];
+                $arr = ['role_id'=>$role_id,'rbac_id'=>$rbac_ids];
+                $res = Shop_admin_role_rbac::insert($arr);
+
+            }
+            if($res)
+            {
+                return 1;die;
+            }
+        }
+
+
+        $rbac_id = $data['id'];
+        $len = count($rbac_id);
+        $res = Shop_admin_role_rbac::where('role_id',$role_id)->delete();
+        if($res)
+        {
+            for($i=0; $i<$len; $i++)
+            {
+                $rbac_ids = $rbac_id[$i];
+                $arr = ['role_id'=>$role_id,'rbac_id'=>$rbac_ids];
+                $res = Shop_admin_role_rbac::insert($arr);
+
+            }
+            if($res)
+            {
+                return 1;die;
+            }
+        }
+        else
+        {
+            for($i=0; $i<$len; $i++)
+            {
+                $rbac_ids = $rbac_id[$i];
+                $arr = ['role_id'=>$role_id,'rbac_id'=>$rbac_ids];
+                $res = Shop_admin_role_rbac::insert($arr);
+
+            }
+            if($res)
+            {
+                return 1;die;
+            }
+        }
+
+    }
+
+
+    //删除角色
+    public function del_role(Request $request)
+    {
+        $id = $request->get('id');
+        $role_rbac = Shop_admin_role_rbac::where('role_id',$id)->get()->toArray();
+        if(!empty($role_rbac))
+        {
+            return 2;die;
+        }
+        $res = Shop_admin_role::where('id',$id)->delete();
+        if($res)
+        {
+            return 1;die;
+        }
+
+    }
+
+
+    //无限极分类
+    public function reat($data,$pid=0)
+    {
+        $tree = [];
+        foreach ($data as $key => $v)
+        {
+            if($v['pid'] == $pid)
+            {
+                $v['son'] = $this->reat($data,$v['id']);
+                $tree[] = $v;
+            }
+        }
+        return $tree;
+    }
+
+
 
 
 }

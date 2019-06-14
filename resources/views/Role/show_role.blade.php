@@ -18,6 +18,10 @@
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <link href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
 </head>
 
 <body>
@@ -62,47 +66,51 @@
         </thead>
         <tbody>
         @foreach($a as $v)
+
         <tr>
             <td>
                 <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
             </td>
-            <td>1</td>
-            <td>{{$v['role']}}</td>
+            <td>{{$v->id}}</td>
+            <td>{{$v->role}}</td>
             <td>
-            @foreach($v['role_rbac'] as $vals)
-{{--                @foreach($vals['rbac'] as $valss)--}}
-            {{$vals['rbac']['name']}},
-{{--                    @endforeach--}}
+
+            @foreach($v->role_rbac as $vals)
+
+           @if($vals->rbac)
+               {{$vals->rbac->name}},
+               @endif
             @endforeach
+
             </td>
-{{--            <td class="td-status">--}}
+            <td class="td-status">
 {{--                <span class="layui-btn layui-btn-normal layui-btn-mini">已启用</span></td>--}}
-            <td class="td-manage">
+{{--            <td class="td-manage">--}}
 {{--                <a onclick="member_stop(this,'10001')" href="javascript:;"  title="启用">--}}
 {{--                    <i class="layui-icon">&#xe601;</i>--}}
 {{--                </a>--}}
-                <a title="编辑"  onclick="x_admin_show('编辑','/upd_role')" href="javascript:;">
+                <a title="编辑" href="{{url('/upd_role',['id'=>$v['id']])}}">
                     <i class="layui-icon">&#xe642;</i>
                 </a>
-                <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">
+                <a title="删除"  onclick="member_del(this,{{$v['id']}})" href="javascript:;">
                     <i class="layui-icon">&#xe640;</i>
                 </a>
-{{--            </td>--}}
+            </td>
         </tr>
         @endforeach
         </tbody>
     </table>
-    <div class="page">
-        <div>
-            <a class="prev" href="">&lt;&lt;</a>
-            <a class="num" href="">1</a>
-            <span class="current">2</span>
-            <a class="num" href="">3</a>
-            <a class="num" href="">489</a>
-            <a class="next" href="">&gt;&gt;</a>
-        </div>
-    </div>
-
+{{--    <div class="page">--}}
+{{--        <div>--}}
+{{--            <a class="prev" href="">&lt;&lt;</a>--}}
+{{--            <a class="num" href="">1</a>--}}
+{{--            <span class="current">2</span>--}}
+{{--            <a class="num" href="">3</a>--}}
+{{--            <a class="num" href="">489</a>--}}
+{{--            <a class="next" href="">&gt;&gt;</a>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+    {{ $a->links() }}
 </div>
 <script>
     layui.use('laydate', function(){
@@ -147,8 +155,27 @@
     function member_del(obj,id){
         layer.confirm('确认要删除吗？',function(index){
             //发异步删除数据
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!',{icon:1,time:1000});
+            $.ajax({
+                url:"/del_role",
+                type:"get",
+                data:{id:id},
+                success:function(data)
+                {
+                    // alert(data);
+                    if(data == 2)
+                    {
+                        layer.msg('请删除权限');
+                        return false;
+                    }
+                    if(data == 1)
+                    {
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!',{icon:1,time:1000});
+                    }
+
+                }
+            })
+
         });
     }
 

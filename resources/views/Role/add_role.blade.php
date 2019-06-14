@@ -116,12 +116,11 @@
                             content: '添加成功',
                             scrollbar: false
                         });
-                        history.go(0);
                     }
 
                     if(data == 3)
                     {
-                        layer.msg('角色不能重复');
+                        layer.msg('角色已存在');
                         return false;
                     }
                     if(data == 4)

@@ -119,7 +119,6 @@
                 if(data == 1)
                 {
                     layer.alert('修改成功', {icon: 1});
-                    history.go(0);
                 }
                 str = data.msg;
                 var arr = str.splice(',');

@@ -66,7 +66,8 @@ class GoodsTypeController extends Controller
             $type = Cache::get('type');
         }else{
             //从数据库中获取数据  并存入缓存
-            $type = Goodstype::all();
+            $type = Goodstype::all()->toArray();
+            $type = $this->getTree($type);
             Cache::forever('type',$type);
         }
 
@@ -97,7 +98,7 @@ class GoodsTypeController extends Controller
             if($v['f_id'] == $pid){
                 $v['type_name'] = $level.$v['type_name'];
                 $arr[] = $v;
-                $this->getTree($data,$v['id'],$level.'  ');
+                $this->getTree($data,$v['id'],$level.'__');
             }
         }
         return $arr;

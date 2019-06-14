@@ -72,6 +72,16 @@
                         </li>
                     </ul>
                 </li>
+                <li class="line dk"></li>
+                <li>
+                    <a href="#"><i class="fa fa-desktop"></i> <span class="nav-label">客服中心</span><span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a class="J_menuItem" href="customerlist">用户评论</a>
+                        </li>
+                        <li><a class="J_menuItem" href="#">...</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </nav>

@@ -30,6 +30,14 @@ Route::group(['prefix'=>'/'],function(){
     Route::any('brandedit/brandsave', "GoodsBrandController@brandsave");
 });
 
+//客服路由
+Route::group(['prefix'=>'/'],function(){
+    Route::get('customerlist','CustomerConteoller@customerlist');
+    Route::get('comment/{id?}','CustomerConteoller@comment');
+    Route::any('commentadd','CustomerConteoller@commentadd');
+    Route::any('commentdelete/{id?}','CustomerConteoller@commentdelete');
+});
+
 
 
 

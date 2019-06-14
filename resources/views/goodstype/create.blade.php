@@ -74,13 +74,13 @@
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">顶级分类</label>
+                            <label class="col-sm-2 control-label">上级分类</label>
 
                             <div class="col-sm-10">
                                 <select class="form-control m-b" name="f_id" style="height: 30px">
-                                    <option value="0">无</option>
+                                    <option value="0">顶级分类</option>
                                     @foreach($type as $item)
-                                        <option value="{{$item->id}}">{{$item->type_name}}</option>
+                                        <option value="{{$item['id']}}">{{$item['type_name']}}</option>
                                     @endforeach
                                 </select>
                             </div>

@@ -128,10 +128,6 @@ Route::get('/upd', 'Admin@upd');
 //添加角色
 Route::post('/add_roles', 'Role@add_roles');
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 //订单列表
 Route::get('/orderlist','orderController@orderlist');
 Route::get('/index','orderController@index');

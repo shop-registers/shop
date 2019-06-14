@@ -15,7 +15,8 @@
     <link href="../../css/plugins/iCheck/custom.css" rel="stylesheet">
     <link href="../../css/animate.css" rel="stylesheet">
     <link href="../../css/style.css?v=4.1.0" rel="stylesheet">
-<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>    
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
     function fileSelect() {
         document.getElementById("fileToUpload").click(); 
@@ -34,9 +35,11 @@
         contentType: false,
         processData: false,
         success:function(res){
-            console.log(res);
-         var str='<tr><td><img src="../../uploads/'+res+'" width="200px" height="200px"></td><td><a href="../delete_img/"><button type="button" class="btn btn-sm btn-primary">删除</button></a></td></tr>';
-          $('#t01').append(str);
+            str=res.replace(/\"/g,"");
+            if(swal("添加成功", "", "success")){
+                var str="<tr><td><img src='../../uploads/"+str+"' width='200px' height='200px'></td><td><a href='../delete_img/'><button type='button' class='btn btn-sm btn-primary'>删除</button></a></td></tr>";
+                $('#t01').append(str);
+            }
         }
       })
     }

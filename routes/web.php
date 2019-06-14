@@ -127,3 +127,24 @@ Route::get('/upd_admin/{id}', 'Admin@upd_admin');
 Route::get('/upd', 'Admin@upd');
 //添加角色
 Route::post('/add_roles', 'Role@add_roles');
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+//订单列表
+Route::get('/orderlist','orderController@orderlist');
+Route::get('/index','orderController@index');
+//订单编辑
+Route::any('/orderAdd','orderController@orderAdd');
+//订单添加
+Route::post('/orderAdds','orderController@orderAdds');
+//订单修改
+Route::any('/orderUpdate','orderController@orderUpdate');
+
+//仓库添加
+Route::any('/WarehouseAdd','WarehouseController@WarehouseAdd');
+
+Route::any('/WarehouseAdds','WarehouseController@WarehouseAdds');
+
+Route::any('/WarehouseShow','WarehouseController@WarehouseShow');

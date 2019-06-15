@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Users;
+use App\Models\Pwd;
 use App\Http\Controllers\Controller;
 
 class MyController extends Controller
@@ -58,12 +59,14 @@ class MyController extends Controller
             //修改登录最后时间字段
             if(Users::where(['id'=>$user_id])->update(['last_time'=>$last_time]))
             {
+                // $pwd_data=Pwd::where("uid",$user_id)->first();
+                // return $pwd_data;
                 return 1;//登录成功
             }elsE{
                 return 2; //修改失败
             }          
         }
-        return $res;//登录失败
+        return 0;//登录失败
 
     }
     //重置密码

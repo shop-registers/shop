@@ -20,8 +20,6 @@ Route::get('/index',"MyController@index");
 Route::get("/index_v1","MyController@index_v1");
 //公共类
 Route::get("/common","CommonController@initialize");
-//验证滑动token
-Route::post("/check_token","MyController@check_token");
 //添加菜单
 Route::any("/add_menu","MenuController@add_menu");
 //菜单列表
@@ -142,7 +140,6 @@ Route::post('/add_roles', 'Role@add_roles');
 
 //订单列表
 Route::get('/orderlist','orderController@orderlist');
-Route::get('/index','orderController@index');
 //订单编辑
 Route::any('/orderAdd','orderController@orderAdd');
 //订单添加

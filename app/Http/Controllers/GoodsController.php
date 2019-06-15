@@ -109,7 +109,7 @@ class GoodsController extends Controller
      */
     public function Good_list(){
     	$res=Goods::paginate(10);
-    	return view('goods/list',['goodsinfo'=>$res]);
+    	return view('goods.list',['goodsinfo'=>$res]);
     }
     /**
      * 商品添加入库与商品主图上传

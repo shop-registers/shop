@@ -11,11 +11,6 @@ use DB;
 
 class OrderController extends Controller
 {
-    //首页展示
-    public function index()
-    {
-        return view('orderlist.index');
-    }
     //订单列表
     public function orderList()
     {

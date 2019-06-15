@@ -114,12 +114,12 @@ var a=0;
         data: { _token : '<?php echo csrf_token()?>',name:name,pwd:pwd},
         success: function(data){ 
             console.log(data);
-            // if(data==1)
-            // {
-            //     window.location.href = "index";
-            // }else{
-            //     alert("登录失败");
-            // }
+            if(data==1)
+            {
+                window.location.href = "index";
+            }else{
+                alert("登录失败");
+            }
         }, 
         error: function(xhr, type){ 
             alert('Ajax error!') 

@@ -43,9 +43,6 @@
                 <div class="form-group">
                     <input type="password" class="form-control pwd" placeholder="密码" required="" name="password">
                 </div>
-                <!-- 滑动验证 -->
-                <div  class="form-group" id="c1" onblur="yzm()" ></div>
-                <!-- end滑动验证 -->
                 <button type="button" class="btn btn-primary block full-width m-b submit">登 录</button>
 
 
@@ -80,24 +77,6 @@ var a=0;
              a=1;
         })
     
-    
-    // 滑块验证
-    var myCaptcha = _dx.Captcha(document.getElementById('c1'), {
-    appId: '46bd7c134151feb0265fd1ba9e2f5b7c', //appId，在控制台中“应用管理”或“应用配置”模块获取
-    success: function (token) {
-     $.ajax({ 
-        url: "check_token", 
-        type: 'POST',
-        data: { _token : '<?php echo csrf_token()?>',token:token},
-        success: function(data){ 
-            // console.log(data);
-        }, 
-        error: function(xhr, type){ 
-            alert('Ajax error!') 
-        } 
-      });
-    },
-   })
 
    //点击登录按钮
    $(".submit").click(function(){

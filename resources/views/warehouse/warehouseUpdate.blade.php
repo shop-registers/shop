@@ -47,7 +47,7 @@
         <div class="col-sm-5">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>添加订单</h5>
+                    <h5>仓库 修改</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -72,13 +72,14 @@
                         <div class="form-group draggable">
                             <label class="col-sm-3 control-label">仓库名称：</label>
                             <div class="col-sm-9">
-                                <input type="text" name="warehouse_name" class="warehouse_name" placeholder="请输入仓库名称">
+                                <input type="text" name="warehouse_name" class="warehouse_name" value="{{$res[0]['warehouse_name']}}" ="请输入仓库名称">
+                                <input type="hidden" value="{{$res[0]['warehouse_id']}}" class="warehouse_id">
                             </div>
                         </div>
                         <div class="form-group draggable">
                             <label class="col-sm-3 control-label">仓库编码：</label>
                             <div class="col-sm-9">
-                                <input type="text" class="warehouse_code" name="warehouse_code" placeholder="请输入收货人">
+                                <input type="text" class="warehouse_code" name="warehouse_code" value="{{$res[0]['warehouse_code']}}">
                             </div>
                         </div>
 
@@ -88,9 +89,9 @@
 
                             <div class="col-sm-9">
                                 <label class="radio-inline">
-                                    <input type="radio" checked="" value="1" id="optionsRadios1" name="warehouse_status"  class="warehouse_status">是</label>
+                                    <input type="radio" {{$res[0]['warehouse_status'] == 1 ? "checked":""}} value="1" id="optionsRadios1" name="warehouse_status"  class="warehouse_status">是</label>
                                 <label class="radio-inline">
-                                    <input type="radio" value="2" id="optionsRadios2" name="warehouse_status" class="warehouse_status">否</label>
+                                    <input type="radio" {{$res[0]['warehouse_status'] == 2 ? "checked":""}} value="2" id="optionsRadios2" name="warehouse_status" class="warehouse_status">否</label>
                             </div>
                         </div>
 
@@ -101,14 +102,24 @@
                                 <select class="area_name" name="area_name">
                                     <option value="">请选择</option>
                                     @foreach($data as $v)
+                                     @if($v['area_name'] == $res[0]['warehouse_province'])
+                                    <option value="{{$v['area_name']}}" selected>{{$v['area_name']}}</option>
+                                    @else
                                     <option value="{{$v['area_name']}}" >{{$v['area_name']}}</option>
+                                    @endif
                                     @endforeach
                                 </select>
                                 区:
                                 <select class="one" name="one">
                                     <option value="">请选择</option>
 
-                                        <option value=""></option>
+                                    @foreach($info as $v)
+                                    @if($v['area_name'] == $res[0]['warehouse_city'])
+                                    <option value="{{$v['area_name']}}" selected >{{$v['area_name']}}</option>
+                                    @else
+                                    <option value="{{$v['area_name']}}" >{{$v['area_name']}}</option>
+                                    @endif
+                                    @endforeach
 
                                 </select>
 
@@ -121,7 +132,11 @@
                            
                             <div class="col-sm-9">
                             	 @foreach($data as $v)
+                                 @if(in_array($v['area_name'],$warehouse))
+                                <input type="checkbox" checked class="warehouse_area" name="warehouse_area" value="{{$v['area_name']}}">{{$v['area_name']}}
+                                @else
                                 <input type="checkbox" class="warehouse_area" name="warehouse_area" value="{{$v['area_name']}}">{{$v['area_name']}}
+                                @endif
                                 @endforeach
                             </div>
                             
@@ -176,26 +191,28 @@
          var warehouse_area = $("input:checkbox[name='warehouse_area']:checked").map(function(index,elem) {
             return $(elem).val();
         }).get().join(',');
+         var warehouse_id = $('.warehouse_id').val();
 
         $.ajax({
-            url:"WarehouseAdds",
+            url:"WarehouseUpdates",
             data:{
                 warehouse_name:warehouse_name,warehouse_code:warehouse_code,
                 warehouse_status:warehouse_status,warehouse_province:warehouse_province,
                 warehouse_city:warehouse_city,warehouse_area:warehouse_area,
+                warehouse_id:warehouse_id
             },	
             type:"post",
             dataType:"json",
 
             success:function(res){
-                if(res == 1)
+               if(res == 1)
                 {
-                	alert('添加成功');
-                	location.href="warehouseShow";
+                    alert('修改成功');
+                    location.href = "WarehouseShow";
                 }
                 else
                 {
-                	alert('添加失败');
+                    alert('修改失败');
                 }
             }
          })

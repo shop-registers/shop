@@ -135,9 +135,15 @@ Route::post('/orderAdds','orderController@orderAdds');
 //订单修改
 Route::any('/orderUpdate','orderController@orderUpdate');
 
-//仓库添加
+//仓库添加首页
 Route::any('/WarehouseAdd','WarehouseController@WarehouseAdd');
-
+//仓库添加
 Route::any('/WarehouseAdds','WarehouseController@WarehouseAdds');
 
+//仓库展示
 Route::any('/WarehouseShow','WarehouseController@WarehouseShow');
+//仓库删除
+Route::any('/WarehouseDel','WarehouseController@WarehouseDel');
+//仓库修改
+Route::any('/WarehouseUpdate','WarehouseController@WarehouseUpdate');
+Route::any('/WarehouseUpdates','WarehouseController@WarehouseUpdates');

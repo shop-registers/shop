@@ -49,7 +49,8 @@
                 <button type="button" class="btn btn-primary block full-width m-b submit">登 录</button>
 
 
-                <p class="text-muted text-center"> <a href="reset_password"><small>重置密码  </small></a> | | <a href="register.html">注册一个新账号</a>
+                <p class="text-muted text-center"> 
+                <a href="javascript:;"><small>重置密码  </small></a> | | <a href="javascript:;">注册一个新账号</a>
                 </p>
 
             </form>
@@ -112,13 +113,13 @@ var a=0;
         type: 'POST',
         data: { _token : '<?php echo csrf_token()?>',name:name,pwd:pwd},
         success: function(data){ 
-            // console.log(data);
-            if(data==1)
-            {
-                window.location.href = "index";
-            }else{
-                alert("登录失败");
-            }
+            console.log(data);
+            // if(data==1)
+            // {
+            //     window.location.href = "index";
+            // }else{
+            //     alert("登录失败");
+            // }
         }, 
         error: function(xhr, type){ 
             alert('Ajax error!') 

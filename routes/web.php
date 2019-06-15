@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\DB;
 */
 // 登录
 Route::get('/',"MyController@login");
+Route::post('/login_do',"MyController@login_do");
+//后台首页
+Route::get('/index',"MyController@index");
+Route::get("/index_v1","MyController@index_v1");
+//公共类
+Route::get("/common","CommonController@initialize");
+
 //商品分类路由
 Route::group(['prefix'=>'/'],function(){
     Route::get('goodstype', "GoodsTypeController@goodsTypeList");
@@ -39,16 +46,6 @@ Route::group(['prefix'=>'/'],function(){
     Route::any('commentadd','CustomerConteoller@commentadd');
     Route::any('commentdelete/{id?}','CustomerConteoller@commentdelete');
 });
-
-
-Route::post('/login_do',"MyController@login_do");
-//后台首页
-Route::get('/index',"MyController@index");
-Route::get("/index_v1","MyController@index_v1");
-//公共类
-Route::get("/common","CommonController@initialize");
-
-
 
 Route::get('/uploads', function(){
 	return view('admin/uploads');

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Users;
+use App\Models\Pwd;
 use App\Http\Controllers\Controller;
 
 class MyController extends Controller
@@ -15,26 +16,39 @@ class MyController extends Controller
 	{
 		return view("login");
 	}
+
     public function login_do(Request $request)
     {
         $name=$request->input('name');
-        $password=$request->input('password');
+        $password=$request->input('pwd');
+        $last_time=time();
         //根本获取的数据去数据库中查询
         $res = Users::where(['name'=>$name,'password'=>$password])->first();
         //如果有就代表账号密码正确,写入session
-        if ($res->count()){
+        if ($res){
             $request->session()->put('name',$name);
             $request->session()->put('user_id',$res['id']);
-            return redirect('index')->with('tip', '登录成功');;
+            $user_id=$res['id'];
+            //修改登录最后时间字段
+            if(Users::where(['id'=>$user_id])->update(['last_time'=>$last_time]))
+            {
+                // $pwd_data=Pwd::where("uid",$user_id)->first();
+                // return $pwd_data;
+                return 1;//登录成功
+            }elsE{
+                return 2; //修改失败
+            }          
         }
-
+        return 0;//登录失败
 
     }
+    
 	// 后台首页
     public function index(Request $request)
     {
         $user_name=$request->session()->get('name');  //用户名
         $user_id=$request->session()->get('user_id'); //用户id
+        $time=time(); 
         // 多表联查菜单数据
         $menu_data = DB::table('users')
             ->join('user_role', 'users.id', '=', 'user_role.u_id')
@@ -47,17 +61,17 @@ class MyController extends Controller
         // var_dump($menu_data2);
         //调用递归
         $menu_data3=$this->getTree($menu_data2,0);
-        // var_dump($res);
+        // var_dump($menu_data3);
         //渲染视图层
-    	return view("index",['user_name'=>$user_name,'user_id'=>$user_id,'menu_data3'=>$menu_data3]);
+    	return view("index",['user_name'=>$user_name,'time'=>$time,'user_id'=>$user_id,'menu_data3'=>$menu_data3]);
     }
     public function index_v1()
     {
     	return view("index_v1");
     }
 
-    
-     function getTree($menu_data2,$pid)
+    ////递归方法
+    function getTree($menu_data2,$pid)
     {
         //初始化儿子 
         $child = []; 

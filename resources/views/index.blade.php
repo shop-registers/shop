@@ -65,31 +65,20 @@
                     </li> -->
                     <!-- 循环左侧菜单 -->
                     @foreach ($menu_data3 as $k)
-                    
                     <li>
-                       <a href="#"><i class="fa fa-edit"></i> <span class="nav-label"><?php echo $k['name'];?></span><span class="fa arrow"></span></a>
-                    @if($k['child'])
+                    <a class="J_menuItem" href="javascript::volid(0)"><i class="fa fa-edit"></i> <span class="nav-label"><?php echo $k['name'];?></span></a>
                     @foreach ($k['child'] as $v) 
                       <ul class="nav nav-second-level">
                             <li>
-                                <a href="#"><?php echo $v['name'];?> <span class="fa arrow"></span></a>
+                            <a class="J_menuItem" href="<?php echo $v['action'];?>"><i class="fa fa-home"></i><span class="nav-label"><?php echo $v['name'];?> </span> </a>
                                 @foreach ($v['child'] as $v1)
                                 <ul class="nav nav-third-level">
-                                    <li><a class="J_menuItem" href="form_editors.html"><?php echo $v1['name'];?></a> </li>
+                                    <li><a class="J_menuItem" href="<?php echo $v1['action'];?>"><?php echo $v1['name'];?></a> </li>
                                 </ul>
                                 @endforeach
                             </li>
                      </ul> 
-                      @endforeach  
-                      @elseif($k['child']==' ')
-                      @foreach ($k['child'] as $v) 
-                      <ul class="nav nav-second-level">
-                            <li>
-                            <a class="J_menuItem" href="mail_compose.html"><?php echo $v['name'];?></a>
-                            </li>
-                     </ul> 
-                      @endforeach 
-                      @endif
+                      @endforeach
                     </li>
                    @endforeach
                 <!-- 循环左侧菜单 -->
@@ -188,7 +177,12 @@
                     </ul>
                 </nav>
             </div>
-               <h3>你好,<span style="color:blue">{{$user_name}}</span> 欢迎来到电商后台。{{$user_id}}</h3>
+               <h3>你好,<span style="color:blue">{{$user_name}}</span> 欢迎来到电商后台。当前时间为：<span style="color:blue">{{date('Y-m-d H:i:s',$time)}}</span>
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<a href="/">退出</a>
+               </h3>
             <div class="row J_mainContent" id="content-main">
                 <iframe id="J_iframe" width="100%" height="100%" src="index_v1" frameborder="0" data-id="index_v1" seamless></iframe>
             </div>

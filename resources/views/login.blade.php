@@ -35,20 +35,19 @@
             </div>
             <h3>欢迎来到电商后台</h3>
 
-            <form class="m-t" role="form" action="login_do" method="post">
+            <form class="m-t" role="form">
             <input type="hidden" name="_token" value="<?php echo csrf_token();?>">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="用户名" required="" name="name">
+                    <input type="text" class="form-control name" placeholder="用户名" required="" name="name">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" placeholder="密码" required="" id="pwd" name="password">
+                    <input type="password" class="form-control pwd" placeholder="密码" required="" name="password">
                 </div>
-                <!-- 滑动验证 -->
-                <div  class="form-group" id="c1"></div>
-                <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
+                <button type="button" class="btn btn-primary block full-width m-b submit">登 录</button>
 
 
-                <p class="text-muted text-center"> <a href="login.html#"><small>忘记密码了？</small></a> | <a href="register.html">注册一个新账号</a>
+                <p class="text-muted text-center"> 
+                <a href="javascript:;"><small>重置密码  </small></a> | | <a href="javascript:;">注册一个新账号</a>
                 </p>
 
             </form>
@@ -60,30 +59,55 @@
     <script src="js/bootstrap.min.js?v=3.3.6"></script>
 
     <script>
-    //密码验证
-    $("#pwd").blur(function(){
-         var pwd=$("#pwd").val();
-         var ret = /^[a-zA-Z][a-zA-Z0-9_]{5,30}$/;
-            if(ret.test(pwd)){
-
-                alert('ok');
-
-            }else{
-
-                alert('wrong,大小写字母和数字，至少6位最多30位');die;
-
-            }
-    })
-    //密码验证
-
-    // 滑块验证
-        var myCaptcha = _dx.Captcha(document.getElementById('c1'), {
-            appId: '46bd7c134151feb0265fd1ba9e2f5b7c', //appId，在控制台中“应用管理”或“应用配置”模块获取
-            success: function (token) {
-              // console.log('token:', token)
-            }
+var a=0;
+//密码验证方法
+        $(".pwd").blur(function(){
+             var pwd=$(this).val();
+             var ret=/^[0-9a-zA-Z_]{6,30}$/;
+             if((pwd.length)<=0)
+             {
+                 alert("密码不能为空");
+                 a=0;
+             }else{
+                if(!ret.test(pwd)){
+                   alert('格式错误,大小写字母和数字，至少6位最多30位');
+                   a=0;
+                }
+             }
+             a=1;
         })
-    // 滑块验证
+    
+
+   //点击登录按钮
+   $(".submit").click(function(){
+    if(a==0)
+    {
+        alert('登录失败')
+    }else{
+        //验证form表单通过  提交数据
+        var name=$(".name").val();
+        var pwd=$(".pwd").val();
+        $.ajax({ 
+        url: "login_do", 
+        type: 'POST',
+        data: { _token : '<?php echo csrf_token()?>',name:name,pwd:pwd},
+        success: function(data){ 
+            console.log(data);
+            if(data==1)
+            {
+                window.location.href = "index";
+            }else{
+                alert("登录失败");
+            }
+        }, 
+        error: function(xhr, type){ 
+            alert('Ajax error!') 
+        } 
+      });
+    }
+   })
+       
+    
     
 
 

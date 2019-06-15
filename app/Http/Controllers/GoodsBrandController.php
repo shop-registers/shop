@@ -36,7 +36,7 @@ class GoodsBrandController extends Controller
         if($res){
             return view('success')->with([
                 'message'=>'添加成功',
-                'url'=>'brandcreate',
+                'url'=>'../brandcreate',
                 'urlname'=>'品牌添加',
                 'jumpTime'=>3,
             ]);

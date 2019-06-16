@@ -445,4 +445,4 @@ class GoodsController extends Controller
         }
     }
 }
-}
+

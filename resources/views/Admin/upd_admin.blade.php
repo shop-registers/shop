@@ -6,11 +6,11 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="shortcut icon" href="favicon.ico"> <link href="/dsh/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="/dsh/css/font-awesome.css?v=4.4.0" rel="stylesheet">
-    <link href="/dsh/css/plugins/iCheck/custom.css" rel="stylesheet">
-    <link href="/dsh/css/animate.css" rel="stylesheet">
-    <link href="/dsh/css/style.css?v=4.1.0" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico"> <link href="../dsh/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../dsh/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="../dsh/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="../dsh/css/animate.css" rel="stylesheet">
+    <link href="../dsh/css/style.css?v=4.1.0" rel="stylesheet">
 
 
 </head>
@@ -97,21 +97,20 @@
 </div>
 </body>
 </html>
-<script src="/dsh/jq.js"></script>
-<script src="/dsh/layer-v3.1.1/layer/layer.js"></script>
+<script src="../dsh/jq.js"></script>
+<script src="../dsh/layer-v3.1.1/layer/layer.js"></script>
 <script>
     $(document).on("click",".but",function(){
         var name = $("[name='name']").val();
         var pwd = $("[name='pwd']").val();
         var email = $("[name='email']").val();
-        var real_name = $("[name='real_name']").val();
         var tel = $("[name='tel']").val();
         var id = $("[name='id']").val();
         var r_id = $("[name='r_id']").val();
         var u_id = $("[name='u_id']").val();
         $.ajax({
-            url:"/upd",
-            data:{name:name,pwd:pwd,email:email,real_name:real_name,tel:tel,r_id:r_id,u_id:u_id},
+            url:"../upd",
+            data:{name:name,pwd:pwd,email:email,tel:tel,r_id:r_id,u_id:u_id},
             type:"get",
             dataType:"json",
             success:function(data)
@@ -156,11 +155,6 @@
                     if(arr[i]=='tel')
                     {
                         layer.tips('号码不能为空、必须十一位数字组成', '#tel');
-                        return false;
-                    }
-                    if(arr[i]=='real_name')
-                    {
-                        layer.tips('必须汉子,最小两位', '#real_name');
                         return false;
                     }
 

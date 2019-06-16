@@ -14,12 +14,5 @@ class Shop_admin_role extends Model
         return $this->hasMany('App\Shop_admin_role_rbac', 'role_id','id');
     }
 
-//foreach ($a as $val) {
-//foreach ($val->role_rbac() as $val2) {
-//
-//}
-//}
-
-
 
 }

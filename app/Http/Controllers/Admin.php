@@ -33,8 +33,7 @@ class Admin extends Controller
             'name'=>'unique:shop_admin_users,name|required|alpha_dash|between:2,30',
             'password'=>'required|between:8,10',
             'email'=>'unique:shop_admin_users,email|required|email',
-            'tel'=>'required|digits:11',
-            'real_name'=>'required|alpha_dash|between:2,4',
+            'tel'=>'required|digits:11'
         ];
         $message=[
             'name.min'=>'name',
@@ -48,9 +47,6 @@ class Admin extends Controller
             'email.unique'=>'emails',
             'tel.required'=>'tel',
             'tel.digits'=>'tel',
-            'real_name.required'=>'real_name',
-            'real_name.alpha_dash'=>'real_name',
-            'real_name.between'=>'real_name',
         ];
         $validator=Validator::make($data,$rules,$message);
         if(!$validator->passes()){
@@ -62,7 +58,6 @@ class Admin extends Controller
         $arr['name'] = $data['name'];
         $arr['password'] = $data['password'];
         $arr['email'] = $data['email'];
-        $arr['real_name'] = $data['real_name'];
         $arr['tel'] = $data['tel'];
         $role_id = $data['r_id'];
 //        print_r($data);die;
@@ -103,7 +98,7 @@ class Admin extends Controller
         //用户表
         $add_user = new Shop_admin_users;
         $res = $add_user->where('id',$id)->first();
-        $data = DB::table('shop_admin_role')->get()->toArray();
+        $data = DB::table('role')->get()->toArray();
         return view('/admin/upd_admin',['res'=>$res,'data'=>$data]);
     }
 
@@ -112,11 +107,11 @@ class Admin extends Controller
         if($request->ajax())
         {
             $id = $request->get('id');
-            $data = DB::table('shop_admin_users')->where('id',$id)->delete();
-            $aa = DB::table('shop_admin_user_role')->where('u_id',$id)->get();
+            $data = DB::table('users')->where('id',$id)->delete();
+            $aa = DB::table('user_role')->where('u_id',$id)->get();
             if(!empty($aa))
             {
-                $res = DB::table('shop_admin_user_role')->where('u_id',$id)->delete();
+                $res = DB::table('user_role')->where('u_id',$id)->delete();
                 if($res)
                 {
                     return 1;die;
@@ -144,7 +139,6 @@ class Admin extends Controller
             'pwd'=>'required|between:8,30',
             'email'=>'required|email',
             'tel'=>'required|digits:11',
-            'real_name'=>'required|alpha_dash|between:2,4',
         ];
         $message=[
             'name.min'=>'name',
@@ -158,9 +152,6 @@ class Admin extends Controller
 //            'email.unique'=>'emails',
             'tel.required'=>'tel',
             'tel.digits'=>'tel',
-            'real_name.required'=>'real_name',
-            'real_name.alpha_dash'=>'real_name',
-            'real_name.between'=>'real_name',
         ];
         $validator=Validator::make($data,$rules,$message);
         if(!$validator->passes()){
@@ -174,19 +165,18 @@ class Admin extends Controller
         $email = $data['email'];
         $tel = $data['tel'];
         $last_time = $data['last_time'];
-        $real_name = $data['real_name'];
         $u_id = $data['u_id'];
         $r_id = $data['r_id'];
-        $res = DB::table('shop_admin_users')->where('id',$data['u_id'])->update(['name'=>$name,'password'=>$pwd,'email'=>$email,'tel'=>$tel,'last_time'=>$last_time,'real_name'=>$real_name]);
+        $res = DB::table('users')->where('id',$data['u_id'])->update(['name'=>$name,'password'=>$pwd,'email'=>$email,'tel'=>$tel,'last_time'=>$last_time]);
         if($res)
         {
-            $code = DB::table('shop_admin_user_role')->where('u_id',$u_id)->first();
+            $code = DB::table('user_role')->where('u_id',$u_id)->first();
             if(empty($code))
             {
-                $user_role = DB::table('shop_admin_user_role')->insert(['u_id'=>$u_id,'r_id'=>$r_id]);
+                $user_role = DB::table('user_role')->insert(['u_id'=>$u_id,'r_id'=>$r_id]);
                 return 1;die;
             }
-            $user_role = DB::table('shop_admin_user_role')->where('u_id',$u_id)->update(['r_id'=>$r_id]);
+            $user_role = DB::table('user_role')->where('u_id',$u_id)->update(['r_id'=>$r_id]);
             return 1;die;
 
 

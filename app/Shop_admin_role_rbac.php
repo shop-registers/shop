@@ -10,7 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Shop_admin_role_rbac extends Model
 {
     //
-    protected $table = 'shop_admin_role_rbac';
+    protected $table = 'role_rbac';
 
     public function rbac()
     {

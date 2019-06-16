@@ -10,5 +10,5 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Shop_admin_users extends Model
 {
     //
-    protected $table = 'shop_admin_users';
+    protected $table = 'users';
 }

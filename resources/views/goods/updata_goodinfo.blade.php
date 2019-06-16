@@ -127,7 +127,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">商品划线价</label>
                                 <div class="input-group m-b"><span class="input-group-addon">&yen;</span>
-                                    <input type="text" class="form-control" name="good_opening_price" value="{{$goodinfo->good_opening_price}}">
+                                    <input type="text" class="form-control" name="good_opening_price" value="{{$goodinfo->good_old_price}}">
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>

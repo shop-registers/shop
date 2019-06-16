@@ -26,7 +26,7 @@ class GoodsController extends Controller
      */
     public function Attr_add(Request $request){
         if($request->isMethod('get')){
-            $type = DB::table('admin_goodstype')->get()->toArray();
+            $type = DB::table('goodstype')->get()->toArray();
             $res=$this->getTree($type);
             return view('attr/add',['type'=>$res]);
         }else{
@@ -116,7 +116,7 @@ class GoodsController extends Controller
      */
     public function Good_add(Request $request){
         if($request->isMethod('get')){
-            $type = DB::table('admin_goodstype')->get()->toArray();
+            $type = DB::table('goodstype')->get()->toArray();
             $brand = Admin_brand::get();
             $res=$this->getTree($type);
             return view('goods/add',['type'=>$res,'brand'=>$brand]);    
@@ -187,7 +187,7 @@ class GoodsController extends Controller
     public function Good_updata(Request $request){
         if($request->isMethod('get')){
             $id=$request->input('id');
-            $type= DB::table('admin_goodstype')->get()->toArray();
+            $type= DB::table('goodstype')->get()->toArray();
             $res=$this->getTree($type);
             $info=DB::table('goods')->where('id',$id)->get();
             $brand=Admin_brand::get();
@@ -409,7 +409,7 @@ class GoodsController extends Controller
     }
     public function Show_sku(Request $request){
         if($request->isMethod('get')){
-            $type = DB::table('admin_goodstype')->get()->toArray();
+            $type = DB::table('goodstype')->get()->toArray();
             $res=$this->getTree($type);
             return view('goods/addsku',['type'=>$res]);
         }else{
@@ -444,5 +444,5 @@ class GoodsController extends Controller
             }
         }
     }
-}
+
 }

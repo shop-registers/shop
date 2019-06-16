@@ -34,7 +34,7 @@ class Role extends Controller
         $data = $request->post();
         //查看角色是否已经存在
         $role = $data['role'];
-        $add_role_name = DB::table('shop_admin_role')->where('role',$role)->first();
+        $add_role_name = DB::table('role')->where('role',$role)->first();
         if(!empty($add_role_name))
         {
             return 3;
@@ -82,7 +82,7 @@ class Role extends Controller
         $name = Shop_admin_role::with('role_rbac')->where('id',$id)->get()->toArray();
         $data = Shop_admin_rbac::all()->toArray();
         $res = $this->reat($data,$pid = 0);
-
+        //print_r($data);die;
         //获取角色对应的权限
         $arr = Shop_admin_role_rbac::select('rbac_id')->where('role_id',$id)->get()->toArray();
         foreach ($arr as $item=>$value){

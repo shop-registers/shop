@@ -16,22 +16,25 @@ Route::get('/',"MyController@login");
 Route::post('/login_do',"MyController@login_do");
 Route::post('/reset_password',"MyController@reset_password");
 //后台首页
-Route::get('/index',"MyController@index");
-Route::get("/index_v1","MyController@index_v1");
+Route::group(['prefix'=>'/'],function(){
+	Route::get('/index',"MyController@index");
+	Route::get("/index_v1","MyController@index_v1");
 //公共类
-Route::get("/common","CommonController@initialize");
+	Route::get("/common","CommonController@initialize");
 //添加菜单
-Route::any("/add_menu","MenuController@add_menu");
+	Route::any("/add_menu","MenuController@add_menu");
 //菜单列表
-Route::get("/menu_list","MenuController@menu_list");
+	Route::get("/menu_list","MenuController@menu_list");
 //查看子菜单
-Route::post("/submenu_list","MenuController@submenu_list");
+	Route::post("/submenu_list","MenuController@submenu_list");
 //删除菜单
-Route::post("/del_menu","MenuController@del_menu");
+	Route::post("/del_menu","MenuController@del_menu");
 //编辑菜单
-Route::any("/update_menu","MenuController@update_menu");
-Route::any("/update_menu1","MenuController@update_menu1");
-Route::any("/update_menu2","MenuController@update_menu2");
+	Route::any("/update_menu","MenuController@update_menu");
+	Route::any("/update_menu1","MenuController@update_menu1");
+	Route::any("/update_menu2","MenuController@update_menu2");
+});
+
 
 //商品分类路由
 Route::group(['prefix'=>'/'],function(){
@@ -111,51 +114,53 @@ Route::group(['prefix'=>'/goods'],function(){
 	Route::any('/good_upd','GoodsController@Good_updata');//商品的修改页面与修改入库
 	
 });
-//添加角色
-Route::get('/add_role', 'Role@add_role');
+Route::group(['prefix'=>'/'],function(){
+	//添加角色
+	Route::get('/add_role', 'Role@add_role');
 //管理员角色列表
-Route::get('/show_role', 'Role@show_role');
+	Route::get('/show_role', 'Role@show_role');
 //管理员角色修改
-Route::get('/upd_role/{id}', 'Role@upd_role');
+	Route::get('/upd_role/{id}', 'Role@upd_role');
 //管理员删除角色
-Route::get('/del_role', 'Role@del_role');
+	Route::get('/del_role', 'Role@del_role');
 //管理员角色修改数据
-Route::post('/upd_roles/', 'Role@upd_roles');
+	Route::post('/upd_roles/', 'Role@upd_roles');
 //获取权限id
-Route::get('/get_rbac_id/{id}', 'Role@upd_role');
+	Route::get('/get_rbac_id/{id}', 'Role@upd_role');
 //添加管理员
-Route::get('/add_admin', 'Admin@add_admin');
+	Route::get('/add_admin', 'Admin@add_admin');
 //删除管理员
-Route::get('/admin_del', 'Admin@admin_del');
+	Route::get('/admin_del', 'Admin@admin_del');
 //列表展示管理员
-Route::get('/show_admin', 'Admin@show_admin');
+	Route::get('/show_admin', 'Admin@show_admin');
 //添加表单
-Route::get('/haha', 'Admin@haha');
+	Route::get('/haha', 'Admin@haha');
 //修改表单
-Route::get('/upd_admin/{id}', 'Admin@upd_admin');
+	Route::get('/upd_admin/{id}', 'Admin@upd_admin');
 //修改表单
-Route::get('/upd', 'Admin@upd');
+	Route::get('/upd', 'Admin@upd');
 //添加角色
-Route::post('/add_roles', 'Role@add_roles');
-
-//订单列表
-Route::get('/orderlist','orderController@orderlist');
+	Route::post('/add_roles', 'Role@add_roles');
+	//订单列表
+	Route::get('/orderlist','orderController@orderlist');
 //订单编辑
-Route::any('/orderAdd','orderController@orderAdd');
+	Route::any('/orderAdd','orderController@orderAdd');
 //订单添加
-Route::post('/orderAdds','orderController@orderAdds');
+	Route::post('/orderAdds','orderController@orderAdds');
 //订单修改
-Route::any('/orderUpdate','orderController@orderUpdate');
+	Route::any('/orderUpdate','orderController@orderUpdate');
 
 //仓库添加首页
-Route::any('/WarehouseAdd','WarehouseController@WarehouseAdd');
+	Route::any('/WarehouseAdd','WarehouseController@WarehouseAdd');
 //仓库添加
-Route::any('/WarehouseAdds','WarehouseController@WarehouseAdds');
+	Route::any('/WarehouseAdds','WarehouseController@WarehouseAdds');
 
 //仓库展示
-Route::any('/WarehouseShow','WarehouseController@WarehouseShow');
+	Route::any('/WarehouseShow','WarehouseController@WarehouseShow');
 //仓库删除
-Route::any('/WarehouseDel','WarehouseController@WarehouseDel');
+	Route::any('/WarehouseDel','WarehouseController@WarehouseDel');
 //仓库修改
-Route::any('/WarehouseUpdate','WarehouseController@WarehouseUpdate');
-Route::any('/WarehouseUpdates','WarehouseController@WarehouseUpdates');
+	Route::any('/WarehouseUpdate','WarehouseController@WarehouseUpdate');
+	Route::any('/WarehouseUpdates','WarehouseController@WarehouseUpdates');
+
+});

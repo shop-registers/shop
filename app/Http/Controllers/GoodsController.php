@@ -163,12 +163,12 @@ class GoodsController extends Controller
      */
     public function Good_delete(Request $request){
 		$id=$request->input('id');
-        $res=DB::transaction(function () {
+        $res=DB::transaction(function () use($id){
             Goods::where('id', '=',$id)->delete();
             Good_attr::where('good_id','=',$id)->delete();
-            Goods_img::where('good_id','=',$id)->delete();
+            Goods_img::where('goods_id','=',$id)->delete();  
         });
-    	if($res){
+    	if(empty($res)){
     		return view('success')->with([
    				//跳转信息
                 'message'=>'删除成功，正在跳转回上一页面！',
@@ -215,7 +215,7 @@ class GoodsController extends Controller
      * 商品图片(主图与所有副图展示)
      */
     public function Good_imglist(){
-    	$res=Goods::select('Goods.id','good_name','good_img')->paginate(10);
+    	$res=Goods::select('goods.id','good_name','good_img')->paginate(10);
     	foreach ($res->items() as &$value) {
     		# code...
     		$value['img_src']=Goods_img::where('goods_id',$value['id'])->select('img_src')->get();
@@ -227,7 +227,8 @@ class GoodsController extends Controller
      */
     public function Change_attr(Request $request){
     	$id=$request->input('id');
-    	$res=Good_attr::where('good_id',$id)->get();
+    	$res['attr']=Good_attr::where('good_id',$id)->get();
+        $res['good_sku']=Goods_sku::where('goods_id',$id)->get();
     	echo json_encode($res);
     }
     /**

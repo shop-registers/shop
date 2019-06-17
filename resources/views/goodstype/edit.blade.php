@@ -93,9 +93,9 @@
                                     <option value="0">无</option>
                                     @foreach($type as $item)
                                         @if($data['f_id'] == $item['id'])
-                                            <option value="{{$item->id}}" selected>{{$item->type_name}}</option>
+                                            <option value="{{$item['id']}}" selected>{{$item['type_name']}}</option>
                                         @else
-                                            <option value="{{$item->id}}">{{$item->type_name}}</option>
+                                            <option value="{{$item['id']}}">{{$item['type_name']}}</option>
                                         @endif
                                     @endforeach
                                 </select>

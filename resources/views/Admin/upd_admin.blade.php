@@ -58,14 +58,6 @@
                             <span id="tel"></span>
                         </div>
                     </div>
-                    <div class="hr-line-dashed"></div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">姓名：</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="real_name"  value="{{$res->real_name}}"  placeholder="您的真实姓名" class="form-control">
-                            <span id="real_name"></span>
-                        </div>
-                    </div>
                     <input type="hidden" name="u_id" value="{{$res->id}}}">
                     <div class="hr-line-dashed"></div>
                     <div class="form-group">

@@ -64,23 +64,23 @@
                         </ul>
                     </li> -->
                     <!-- 循环左侧菜单 -->
-                    @foreach ($menu_data3 as $k)
+                    <?php $__currentLoopData = $menu_data3; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <li>
                     <a class="J_menuItem"><i class="fa fa-edit"></i> <span class="nav-label"><?php echo $k['name'];?></span></a>
-                    @foreach ($k['child'] as $v) 
+                    <?php $__currentLoopData = $k['child']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $v): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> 
                       <ul class="nav nav-second-level">
                             <li>
                             <a class="J_menuItem" href="<?php echo $v['action'];?>"><i class="fa fa-home"></i><span class="nav-label"><?php echo $v['name'];?> </span> </a>
-                                @foreach ($v['child'] as $v1)
+                                <?php $__currentLoopData = $v['child']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $v1): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <ul class="nav nav-third-level">
                                     <li><a class="J_menuItem" href="<?php echo $v1['action'];?>"><?php echo $v1['name'];?></a> </li>
                                 </ul>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </li>
                      </ul> 
-                      @endforeach
+                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </li>
-                   @endforeach
+                   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 <!-- 循环左侧菜单 -->
                 </ul>
             </div>
@@ -109,7 +109,7 @@
                     </ul>
                 </nav>
             </div>
-               <h3>你好,<span style="color:blue">{{$user_name}}</span> 欢迎来到电商后台。当前时间为：<span style="color:blue">{{date('Y-m-d H:i:s',$time)}}</span>
+               <h3>你好,<span style="color:blue"><?php echo e($user_name); ?></span> 欢迎来到电商后台。当前时间为：<span style="color:blue"><?php echo e(date('Y-m-d H:i:s',$time)); ?></span>
                </h3>
             <div class="row J_mainContent" id="content-main">
                 <iframe id="J_iframe" width="100%" height="100%" src="index_v1" frameborder="0" data-id="index_v1" seamless></iframe>

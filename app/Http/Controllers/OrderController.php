@@ -27,7 +27,7 @@ class OrderController extends Controller
             // print_r($data);die;
             $res = shop::where('area_name',$data)->select()->get()->toArray();
            // print_r($res);die;
-            $info = DB::table('shop_areas')->where('p_id',$res[0]['id'])->select()->get()->toArray();
+            $info = DB::table('areas')->where('p_id',$res[0]['id'])->select()->get()->toArray();
             return $info;
         }
         $data = Add::where('p_id',0)->select('id','p_id','area_name')->get()->toArray();

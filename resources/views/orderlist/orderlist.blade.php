@@ -196,9 +196,6 @@
 <!-- iCheck -->
 <script src="js/plugins/iCheck/icheck.min.js"></script>
 
-<!-- Peity -->
-<script src="js/demo/peity-demo.js"></script>
-
 <script>
     $(document).ready(function () {
         $('.i-checks').iCheck({

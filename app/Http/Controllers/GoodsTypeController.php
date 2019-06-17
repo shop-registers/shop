@@ -54,6 +54,7 @@ class GoodsTypeController extends Controller
 
         //查找数据
         $data = Goodstype::find($id);
+        //print_r($type);die;
 
         return view('goodstype.edit',['data'=>$data,'type'=>$type]);
     }

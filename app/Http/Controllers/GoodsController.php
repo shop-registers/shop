@@ -163,15 +163,10 @@ class GoodsController extends Controller
      */
     public function Good_delete(Request $request){
 		$id=$request->input('id');
-        try {
+        DB::transaction(function () use($id){
             Goods::where('id', '=',$id)->delete();
             Good_attr::where('good_id','=',$id)->delete();
-            Goods_img::where('goods_id','=',$id)->delete();
-            DB::commit(); //提交事务
-        } catch (Exception $e) {
-            DB::rollback(); //回滚事务
-        }
-            
+            Goods_img::where('goods_id','=',$id)->delete();  
         });
     	if($res){
     		return view('success')->with([

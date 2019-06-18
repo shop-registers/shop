@@ -108,11 +108,11 @@
                                 <select class="one" name="one">
                                     <option value="">请选择</option>
 
-                                    @foreach($info as $v)
-                                    @if($v['area_name'] == $data[0]['city'])
-                                    <option value="{{$v['area_name']}}" selected >{{$v['area_name']}}</option>
+                                    @foreach($info as $K => $v)
+                                    @if($v->area_name == $data[0]['city'])
+                                    <option value="{{$v->area_name}}" selected >{{$v->area_name}}</option>
                                     @else
-                                    <option value="{{$v['area_name']}}" >{{$v['area_name']}}</option>
+                                    <option value="{{$v->area_name}}" >{{$v->area_name}}</option>
                                     @endif
                                     @endforeach
 

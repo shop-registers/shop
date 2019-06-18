@@ -27,10 +27,11 @@ class OrderController extends Controller
             // print_r($data);die;
             $res = shop::where('area_name',$data)->select()->get()->toArray();
            // print_r($res);die;
-            $info = DB::table('shop_areas')->where('p_id',$res[0]['id'])->select()->get()->toArray();
+            $info = DB::table('areas')->where('p_id',$res[0]['id'])->select()->get()->toArray();
             return $info;
         }
         $data = Add::where('p_id',0)->select('id','p_id','area_name')->get()->toArray();
+        // print_r($data);die;
 
         return view('orderlist.orderAdd',['data'=>$data]);
     }
@@ -94,8 +95,7 @@ class OrderController extends Controller
                 ];
                 // print_r($data);die;
                 $order_id = $_POST['order_id'];
-                // print_r($data);die;
-                // print_r($order_id);die;
+
                 $res = Order::where('order_id',$order_id)->update($data);
                 if($res)
                 {
@@ -107,12 +107,17 @@ class OrderController extends Controller
                 }
             }
             $order_id = $request->all();
-            // print_r($order_id);die;
+            
             $data = Order::where('order_id',$order_id)->select()->get()->toArray();
-            // print_r($data);die;
+            // print_r($data[0]['order_id']);die;
+            $demo = DB::table('order_master')->join('areas', 'order_master.province','=','areas.area_name')->where('order_id',$order_id)->select()->get()->toArray();
+            $id = $demo[0]->id;
+            // dd($id);
+            $info = DB::table('areas')->where('p_id',$id)->get()->toArray();
+            // dd($info);
             $res = shop::where('p_id',0)->select()->get()->toArray();
-            $info = shop::select()->get()->toArray();
-            // print_r($info);die;
+
+            // $info = shop::select('p_id',$res['id'])->get()->toArray();
             // print_r($data);die;
             return view('orderlist.orderUpdate',['data'=>$data,'res'=>$res,'info'=>$info]);
         

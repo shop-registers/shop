@@ -49,7 +49,7 @@
                             <div class="col-sm-3">
                                 <div class="input-group">
                                     <input type="text" placeholder="请输入关键词" class="input-sm form-control"> <span class="input-group-btn">
-                                        <button type="button" class="btn btn-sm btn-primary" style="margin-right: 10px;"> 搜索</button></span>
+                                        <button type="button" class="btn btn-sm btn-primary" style="margin-right: 10px;"> 搜索</button> 
 
                                 </div>
 
@@ -86,10 +86,10 @@
                                         <td><span class="pie">{{$item->good_opening_price}}</span></td>
                                         <td><img src="../uploads/{{$item->good_img}}" width="50px" height="50px"></td>
                                         <td>
-                                            @if($item->good_stauts==1)
-                                            上架
-                                            @else
+                                            @if( $item->good_stauts == 1)
                                             下架
+                                            @else
+                                            上架
                                             @endif
                                         </td>
                                         <td>{{$item->good_inventory}}</td>

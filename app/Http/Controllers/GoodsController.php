@@ -195,7 +195,7 @@ class GoodsController extends Controller
         }else{
             $data=$request->input();
             unset($data['_token']);
-            $res=Goods::where('id', $data['f_id'])->update($data);
+            $res=Goods::where('id', $data['id'])->update($data);
             if($res){
                 return view('success')->with([
                     //跳转信息

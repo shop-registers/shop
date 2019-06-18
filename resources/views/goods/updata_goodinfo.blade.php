@@ -80,7 +80,7 @@
                     <div class="ibox-content">
                         <form method="POST" class="form-horizontal" action="good_upd" enctype="multipart/form-data">
                             @csrf
-                            
+                            <input type="hidden" name="id" value="{{$goodinfo->id}}">
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">商品所属分类</label>
@@ -127,7 +127,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">商品划线价</label>
                                 <div class="input-group m-b"><span class="input-group-addon">&yen;</span>
-                                    <input type="text" class="form-control" name="good_old_price" value="{{$goodinfo->good_old_price}}">
+                                    <input type="text" class="form-control" name="good_opening_price" value="{{$goodinfo->good_opening_price}}">
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>

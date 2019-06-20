@@ -254,8 +254,18 @@ class GoodsController extends Controller
      * @goods_addtime 商品的添加时间
      */
     public function sku_code($goods_id,$type_id){
-    	$str=date('yz',time()).$goods_id.$type_id;
-    	return $str;
+    	$str=date('yz',time()).$goods_id.$type_id.rand();
+        $sku=Goods_sku::where('goods_id',$goods_id)->select('sku_id')->get();
+        if(empty($sku[0])){
+            return $str;
+        }else{
+            $res=in_array($str,$sku);
+            if($res){
+                $this->sku_code($goods_id,$type_id);
+            }else{
+                return $str;
+            }    
+        }
     }
 
     public function data_change($data){
